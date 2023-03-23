@@ -53,7 +53,7 @@
                           <td><?= $pesan['jumlah']?></td>
                           <td><div class="badge <?=$badge?>"><?= $pesan['status']?></div></td>
                           <td>
-                            <a href="<?= base_url('supplier/kirim/').$pesan['id_supplier']?>" class="btn btn-success">Kirim Barang</a>
+                            <a href="<?= base_url('supplier/kirim/').$pesan['id_barang_pesanan']?>" class="btn btn-success">Kirim Barang</a>
                           </td>
                         </tr>
                       </tbody> 

@@ -49,9 +49,11 @@ class BarangPesanan extends Model
 
     public function updateStatusByIdSupplier($id)
     {
+        //update status by id_barang_pesanan where id_supplier
+
         $builder = $this->db->table('barang_pesanan');
         $builder->set('status', 'Dikirim');
-        $builder->where('id_supplier', $id);
+        $builder->where('id_barang_pesanan', $id);
         $builder->update();
     }
 

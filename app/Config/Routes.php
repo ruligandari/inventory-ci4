@@ -32,6 +32,7 @@ $routes->set404Override();
 $routes->get('/', 'Home::index');
 $routes->get('/login', 'Admin\AuthController::index');
 $routes->post('/auth', 'Admin\AuthController::auth');
+$routes->post('/auth/logout', 'Admin\AuthController::logout');
 // Routes Pegawai
 $routes->group('pegawai', static function ($routes){
     $routes->get('home', 'Pegawai\DashboardController::index');
@@ -56,6 +57,7 @@ $routes->group('pegawai', static function ($routes){
 
 $routes->group('supplier', static function ($routes){
     $routes->get('login', 'Supplier\AuthController::index');
+    $routes->get('logout', 'Supplier\AuthController::logout');
     $routes->post('auth', 'Supplier\AuthController::auth');
     $routes->get('dashboard', 'Supplier\DashboardController::index');
     $routes->get('pesanan', 'Supplier\PesananController::index');

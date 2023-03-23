@@ -42,4 +42,10 @@ class AuthController extends BaseController
             return redirect()->to('/supplier/login');
         }
     }
+
+    public function logout()
+    {
+        session()->destroy();
+        return redirect()->to('/supplier/login');
+    }
 }
