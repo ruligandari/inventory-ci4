@@ -19,7 +19,7 @@
                 <div class="card-header">
                   <h4>Barang Pesanan</h4>
                   <div class="card-header-action">
-                      <a href="<?= base_url('pegawai/users/create')?>" class="btn btn-primary">Tambah Pesanan</a>        
+                      <a href="<?= base_url('pegawai/pesan-barang/create')?>" class="btn btn-primary">Tambah Pesanan</a>        
                   </div>
                 </div>
                 <div class="card-body">

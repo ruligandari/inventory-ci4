@@ -50,6 +50,8 @@ $routes->group('pegawai', static function ($routes){
     $routes->post('supplier/update/(:any)', 'Pegawai\SupplierController::update/$1');
 
     $routes->get('pesan-barang', 'Pegawai\PesanBarangController::index');
+    $routes->get('pesan-barang/create', 'Pegawai\PesanBarangController::create');
+    $routes->post('pesan-barang/save', 'Pegawai\PesanBarangController::save');
 });
 
 $routes->group('supplier', static function ($routes){
