@@ -22,6 +22,7 @@ class PesananController extends BaseController
     {
         $pesanan = new BarangPesanan();
         $pesanan->updateStatusByIdSupplier($id);
+        session()->setFlashdata('success', 'Pengiriman Berhasil ditambahkan');
         return redirect()->to('/supplier/pesanan');
     }
 }
