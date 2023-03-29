@@ -29,12 +29,20 @@ $routes->set404Override();
 
 // We get a performance increase by specifying the default
 // route since we don't have to scan directories.
+
+// routes for admin
 $routes->get('/', 'Home::index');
 $routes->get('/login', 'Admin\AuthController::index');
 $routes->post('/auth', 'Admin\AuthController::auth');
-$routes->post('/auth/logout', 'Admin\AuthController::logout');
+$routes->get('/logout', 'Admin\AuthController::logout');
+
+// routes for supplier
+$routes->get('/login/supplier', 'Admin\AuthSupplierController::index');
+$routes->post('/login/supplier/auth', 'Admin\AuthSupplierController::auth');
+$routes->post('/logout/supplier', 'Admin\AuthSupplierController::logout');
+
 // Routes Pegawai
-$routes->group('pegawai', static function ($routes){
+$routes->group('pegawai', ['filter' => 'AuthFilter'], static function ($routes){
     $routes->get('home', 'Pegawai\DashboardController::index');
     $routes->get('users', 'Pegawai\UsersController::index');
     $routes->get('users/create', 'Pegawai\UsersController::create');
@@ -55,10 +63,7 @@ $routes->group('pegawai', static function ($routes){
     $routes->post('pesan-barang/save', 'Pegawai\PesanBarangController::save');
 });
 
-$routes->group('supplier', static function ($routes){
-    $routes->get('login', 'Supplier\AuthController::index');
-    $routes->get('logout', 'Supplier\AuthController::logout');
-    $routes->post('auth', 'Supplier\AuthController::auth');
+$routes->group('supplier', ['filter' => 'AuthSupplierFilter'], static function ($routes){
     $routes->get('dashboard', 'Supplier\DashboardController::index');
     $routes->get('pesanan', 'Supplier\PesananController::index');
     $routes->get('kirim/(:any)', 'Supplier\PesananController::kirim/$1');

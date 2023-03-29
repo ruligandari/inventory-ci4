@@ -14,7 +14,7 @@
                   echo '</div>';
                 }
                 ?>
-                <form method="POST" action="<?= base_url('supplier/auth')?>" class="needs-validation" novalidate="">
+                <form method="POST" action="<?= base_url('login/supplier/auth')?>" class="needs-validation" novalidate="">
                 <?= csrf_field()?>
                   <div class="form-group">
                     <label for="email">Email</label>

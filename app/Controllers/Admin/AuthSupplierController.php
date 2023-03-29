@@ -1,11 +1,11 @@
 <?php
 
-namespace App\Controllers\Supplier;
+namespace App\Controllers\Admin;
 
 use App\Controllers\BaseController;
 use App\Models\SupplierModel;
 
-class AuthController extends BaseController
+class AuthSupplierController extends BaseController
 {
     public function index()
     {
@@ -36,17 +36,17 @@ class AuthController extends BaseController
                 return redirect()->to('supplier/dashboard');
             } else{
                 session()->setFlashdata('msg', 'Password salah');
-                return redirect()->to('/supplier/login');
+                return redirect()->to('/login/supplier');
             }
         } else {
             session()->setFlashdata('msg', 'Email Tidak Ditemukan');
-            return redirect()->to('/supplier/login');
+            return redirect()->to('/login/supplier');
         }
     }
 
     public function logout()
     {
         session()->destroy();
-        return redirect()->to('/supplier/login');
+        return redirect()->to('/login/supplier');
     }
 }

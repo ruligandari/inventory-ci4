@@ -43,7 +43,7 @@ class AuthController extends BaseController
                         break;
                     case 3:
                         session()->set($ses_data);
-                        return redirect()->to('/supplier');
+                        return redirect()->to('/supplier/dashboard');
                         break;
                 }
             } else {
@@ -54,5 +54,12 @@ class AuthController extends BaseController
             session()->setFlashdata('msg', 'Email Tidak Ditemukan');
             return redirect()->to('/login');
         }
+    }
+
+
+    public function logout()
+    {
+        session()->destroy();
+        return redirect()->to('/login');
     }
 }
