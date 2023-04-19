@@ -63,6 +63,6 @@ Additionally, make sure that the following extensions are enabled in your PHP:
 
 ## Development on Local Server
 
-- Make migration
+- Penting !!!! setelah melakukan tutorial sebelumnya, pastikan melakukan migration terlebih dahulu dengan perintah:
 
 `php spark migrate`
