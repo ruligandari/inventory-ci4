@@ -75,7 +75,7 @@ use Config\Services;
                 <a href="#" class="nav-link has-dropdown" data-toggle="dropdown"><i class="fas fa-box"></i> <span>Data Barang</span></a>
                 <ul class="dropdown-menu">
                   <li><a class="nav-link" href="<?=base_url('pegawai/pesan-barang')?>">Pesan Barang</a></li>
-                  <li><a class="nav-link" href="#">Barang Masuk</a></li>
+                  <li><a class="nav-link" href="<?= base_url('pegawai/barang-masuk')?>">Barang Masuk</a></li>
                   <li><a class="nav-link" href="#">Barang Keluar</a></li>
                 </ul>
               </li>

@@ -61,6 +61,10 @@ $routes->group('pegawai', ['filter' => 'AuthFilter'], static function ($routes){
     $routes->get('pesan-barang', 'Pegawai\PesanBarangController::index');
     $routes->get('pesan-barang/create', 'Pegawai\PesanBarangController::create');
     $routes->post('pesan-barang/save', 'Pegawai\PesanBarangController::save');
+    
+    $routes->get('barang-masuk', 'Pegawai\BarangMasukController::index');
+    $routes->post('barang-masuk/save', 'Pegawai\BarangMasukController::save');
+
 });
 
 $routes->group('supplier', ['filter' => 'AuthSupplierFilter'], static function ($routes){

@@ -4,7 +4,7 @@
 <div class="main-content">
         <section class="section">
           <div class="section-header">
-            <h1>Pesan Barang</h1>
+            <h1>Barang Masuk</h1>
           </div>
           <div class="row">
             <div class="col-lg-12 col-md-12 col-12 col-sm-12">
@@ -17,10 +17,7 @@
                 ?>
               <div class="card">
                 <div class="card-header">
-                  <h4>Barang Pesanan</h4>
-                  <div class="card-header-action">
-                      <a href="<?= base_url('pegawai/pesan-barang/create')?>" class="btn btn-primary">Tambah Pesanan</a>        
-                  </div>
+                  <h4>Barang Masuk</h4>
                 </div>
                 <div class="card-body">
                   <div class="table-responsive">
@@ -56,7 +53,7 @@
                           <td><?= $pesanan['jumlah']?></td>
                           <td><div class="badge <?=$badge?>"><?= $pesanan['status']?></div></td>
                           <td>
-                            <button data-target="#hapusModal<?=$pesanan['id_barang_pesanan']?>" data-toggle="modal" class="btn btn-danger">Hapus</button>
+                            <button data-target="#hapusModal<?=$pesanan['id_barang_pesanan']?>" data-toggle="modal" class="btn btn-primary">Masuk</button>
                           </td>
                         </tr>
                       </tbody> 
