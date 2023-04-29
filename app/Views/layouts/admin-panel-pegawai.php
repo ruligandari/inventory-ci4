@@ -49,7 +49,7 @@ use Config\Services;
                 <i class="fas fa-cog"></i> Settings
               </a>
               <div class="dropdown-divider"></div>
-              <a href="#" class="dropdown-item has-icon text-danger">
+              <a href="<?=base_url('logout')?>" class="dropdown-item has-icon text-danger">
                 <i class="fas fa-sign-out-alt"></i> Logout
               </a>
             </div>
@@ -76,7 +76,7 @@ use Config\Services;
                 <ul class="dropdown-menu">
                   <li><a class="nav-link" href="<?=base_url('pegawai/pesan-barang')?>">Pesan Barang</a></li>
                   <li><a class="nav-link" href="<?= base_url('pegawai/barang-masuk')?>">Barang Masuk</a></li>
-                  <li><a class="nav-link" href="#">Barang Keluar</a></li>
+                  <li><a class="nav-link" href="<?= base_url('pegawai/barang-keluar')?>">Barang Keluar</a></li>
                 </ul>
               </li>
               <li class="menu-header">Laporan Barang</li>
@@ -84,7 +84,7 @@ use Config\Services;
                 <a href="#" class="nav-link has-dropdown " data-toggle="dropdown"><i class="fas fa-print"></i> <span>Laporan Barang</span></a>
                 <ul class="dropdown-menu">
                   <li><a class="nav-link" href="#">Laporan Barang Masuk</a></li>
-                  <li><a class="nav-link" href="#">Laporan Barnag Keluar</a></li>
+                  <li><a class="nav-link" href="#">Laporan Barang Keluar</a></li>
                 </ul>
               </li>
               <li class="menu-header">Supplier</li>

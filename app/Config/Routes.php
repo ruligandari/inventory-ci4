@@ -39,7 +39,7 @@ $routes->get('/logout', 'Admin\AuthController::logout');
 // routes for supplier
 $routes->get('/login/supplier', 'Admin\AuthSupplierController::index');
 $routes->post('/login/supplier/auth', 'Admin\AuthSupplierController::auth');
-$routes->post('/logout/supplier', 'Admin\AuthSupplierController::logout');
+$routes->get('/logout/supplier', 'Admin\AuthSupplierController::logout');
 
 // Routes Pegawai
 $routes->group('pegawai', ['filter' => 'AuthFilter'], static function ($routes){
@@ -64,7 +64,9 @@ $routes->group('pegawai', ['filter' => 'AuthFilter'], static function ($routes){
     
     $routes->get('barang-masuk', 'Pegawai\BarangMasukController::index');
     $routes->post('barang-masuk/save', 'Pegawai\BarangMasukController::save');
-
+    
+    $routes->get('barang-keluar', 'Pegawai\BarangKeluarController::index');
+    $routes->post('barang-keluar/save', 'Pegawai\BarangKeluarController::save');
 });
 
 $routes->group('supplier', ['filter' => 'AuthSupplierFilter'], static function ($routes){
