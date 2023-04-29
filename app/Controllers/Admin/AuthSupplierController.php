@@ -27,7 +27,7 @@ class AuthSupplierController extends BaseController
                     'id_supplier' => $data['id_supplier'],
                     'nama' => $data['nama'],
                     'email' => $data['email'],
-                    'role' => $data['role'],
+                    'role' => '3',
                     'alamat' => $data['alamat'],
                     'no_hp' => $data['no_hp'],
                     'is_supplier' => true,
