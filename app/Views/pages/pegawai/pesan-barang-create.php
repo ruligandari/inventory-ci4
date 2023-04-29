@@ -41,6 +41,7 @@
                         <div class="form-group">
                         <label>Nama Barang</label>
                         <select name="id_barang" id="id_barang" class="form-control">
+                          <option value="Pilih Nama Barang">Pilih Nama Barang</option>
                           <?php foreach($barangdata as $barang):?>
                             <option value="<?= $barang['id_barang'] ?>"><?= $barang['nama_barang'] ?></option>
                           <?php endforeach?>
