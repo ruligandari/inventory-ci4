@@ -67,6 +67,8 @@ $routes->group('pegawai', ['filter' => 'AuthFilter'], static function ($routes){
 
 });
 
+$routes->get('getDataId','Pegawai\PesanBarangController::getDataBarangById');
+
 $routes->group('supplier', ['filter' => 'AuthSupplierFilter'], static function ($routes){
     $routes->get('dashboard', 'Supplier\DashboardController::index');
     $routes->get('pesanan', 'Supplier\PesananController::index');

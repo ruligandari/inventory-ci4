@@ -1,5 +1,7 @@
 <?= $this->extend('layouts/admin-panel-pegawai')?>
-
+<?= $this->section('script-head')?>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<?= $this->endSection()?>
 <?= $this->section('content')?>
 <div class="main-content">
         <section class="section">
@@ -38,17 +40,35 @@
                         </div>
                         <div class="form-group">
                         <label>Nama Barang</label>
-                        <input type="text" name="nama_barang" class="form-control" required="">
+                        <select name="id_barang" id="id_barang" class="form-control">
+                          <?php foreach($barangdata as $barang):?>
+                            <option value="<?= $barang['id_barang'] ?>"><?= $barang['nama_barang'] ?></option>
+                          <?php endforeach?>
+                        </select>
+                        <input type="hidden" name="nama_barang" id="nama_barang">
                         <div class="invalid-feedback">
                             Masukan Nama yang Valid
                         </div>
                         </div>
                         <div class="form-group">
                         <label>Jumlah</label>
-                        <input type="text" name="jumlah" class="form-control">
+                        <input type="text" name="jumlah" id="total_stok" class="form-control">
                         <div class="invalid-feedback">
                             Masukan Email yang Valid
+                        </div>                
                         </div>
+                        <div class="form-group">
+                        <label>Harga</label>
+                        <input type="text" name="harga" id="cost" class="form-control">
+                        <br>
+                        <p id="minorder"></p>
+                        <p id="biayapembelian"></p>
+                        <p id="biayapersediaan"></p>
+                        <p id="biayapemesanan"></p>
+                        <p id="totalbiaya"></p>
+                        <div class="invalid-feedback">
+                            Masukan Email yang Valid
+                        </div>                
                         </div>
                      </div>
                  </div>
@@ -72,4 +92,71 @@
     fixedHeight: true
   });
 </script>
+<script>
+        $(document).ready(function(){
+            $('#id_barang').on('change', function(){
+                var id_barang = $(this).val();
+
+                $.ajax({
+                    url: "<?= base_url('getDataId'); ?>",
+                    type: "GET",
+                    data: { id_barang: id_barang },
+                    dataType: "json",
+                    success: function(response){
+                        var tgl_sekarang = new Date();
+                        var tgl_awal = new Date(tgl_sekarang.getFullYear(), tgl_sekarang.getMonth() - 3, 1);
+                        var tgl_akhir = new Date(tgl_sekarang.getFullYear(), tgl_sekarang.getMonth(), 0);
+
+                        var total_stok = 0;
+
+                        // Looping untuk menghitung jumlah total stok
+                        for (var i = 0; i < response.length; i++) {
+                            var tgl_item = new Date(response[i].tanggal_pesan);
+                            if (tgl_item >= tgl_awal && tgl_item <= tgl_akhir) {
+                                total_stok += parseInt(response[i].jumlah);
+                                harga = parseInt(response[i].harga);
+                                namabarang = response[i].nama_barang;
+                            }
+                        }
+
+                        // Menampilkan hasil perhitungan
+                        console.log('total : '+ total_stok);
+                        let prevDemand = total_stok;
+                        let unitCost = harga;
+                        let holdingCost = 0.2;
+                        let orderCost = 5000;
+
+                        let unitDemand = prevDemand / 3;
+                        let minOrder = Math.ceil(unitDemand);
+                        let orderCostPerUnit2 = orderCost / minOrder;
+                        let orderCostPerUnit = Math.ceil(orderCostPerUnit2)
+                        let totalCost = (unitCost * minOrder) + (holdingCost * unitCost * minOrder) + (orderCostPerUnit * prevDemand);
+
+                        console.log("Jumlah stok yang harus dibeli: " + minOrder);
+                        console.log("Biaya pembelian: " + (minOrder * unitCost));
+                        console.log("Biaya persediaan untuk periode berikutnya: " + (minOrder * unitCost * holdingCost));
+                        console.log("Biaya pemesanan per unit barang: " + orderCostPerUnit);
+                        console.log("Total biaya untuk periode ini dan berikutnya: " + totalCost);
+                        $('#total_stok').val(minOrder);
+                        $('#cost').val(totalCost);
+                        $('#nama_barang').val(namabarang);
+                        let minorder = document.getElementById("minorder");
+                        minorder.textContent = "Jumlah stok yang harus dibeli: " + minOrder;
+
+                        let biayapembelian = document.getElementById("biayapembelian");
+                        biayapembelian.textContent = "Biaya pembelian: " + (minOrder * unitCost);
+
+                        let biayapersediaan = document.getElementById("biayapersediaan");
+                        biayapersediaan.textContent = "Biaya persediaan untuk periode berikutnya: " + (minOrder * unitCost * holdingCost);
+
+                        let biayapemesanan = document.getElementById("biayapemesanan");
+                        biayapemesanan.textContent = "Biaya pemesanan per unit barang: " + orderCostPerUnit;
+
+                        let totalbiaya = document.getElementById("totalbiaya");
+                        totalbiaya.textContent = "Total biaya untuk periode ini dan berikutnya: " + totalCost;
+                    }
+                });
+            });
+        });
+    </script>
 <?= $this->endSection()?>
