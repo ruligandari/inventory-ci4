@@ -4,16 +4,16 @@ namespace App\Models;
 
 use CodeIgniter\Model;
 
-class BarangPesanan extends Model
+class BarangKeluar extends Model
 {
     protected $DBGroup          = 'default';
-    protected $table            = 'barang_pesanan';
-    protected $primaryKey       = 'id_barang_pesanan';
+    protected $table            = 'barang_keluar';
+    protected $primaryKey       = 'id_barang_keluar';
     protected $useAutoIncrement = true;
     protected $insertID         = 0;
     protected $returnType       = 'array';
     protected $useSoftDeletes   = false;
-    protected $protectFields    = false;
+    protected $protectFields    = true;
     protected $allowedFields    = [];
 
     // Dates
@@ -40,31 +40,14 @@ class BarangPesanan extends Model
     protected $beforeDelete   = [];
     protected $afterDelete    = [];
 
-    public function getAllData(){
-        $builder = $this->db->table('barang_pesanan');
-        $builder->join('barang', 'barang.id_barang = barang_pesanan.id_barang');
+
+    public function getAllDataBarangKeluar()
+    {
+        $builder = $this->db->table('barang_keluar');
+        $builder->join('barang', 'barang.id_barang = barang_keluar.id_barang');
         $query = $builder->get();
         $result = $query->getResultArray();
 
         return $result;
     }
-
-    public function pesananBySupplier($id)
-    {
-        $builder = $this->db->table('barang_pesanan');
-        $builder->join('barang', 'barang.id_barang = barang_pesanan.id_barang');
-        $builder->where('barang_pesanan.id_supplier', $id);
-        return $builder->get()->getResultArray();
-    }
-
-    public function updateStatusByIdSupplier($id)
-    {
-        //update status by id_barang_pesanan where id_supplier
-
-        $builder = $this->db->table('barang_pesanan');
-        $builder->set('status', 'Dikirim');
-        $builder->where('id_barang_pesanan', $id);
-        $builder->update();
-    }
-
 }

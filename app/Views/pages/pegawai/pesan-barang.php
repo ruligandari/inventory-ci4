@@ -39,13 +39,31 @@
                       <?php $no = 1?>
                       <?php foreach ($barangpesanan as $pesanan): ?>
                         <?php 
-                            if ($pesanan['status'] == 'Dipesan') {
+                            if (session()->get('role') !== '1') {
+                              if ($pesanan['status'] == 'Dipesan') {
                                 $badge = "badge-warning";
+                                $isHide = 'disabled';
                             } else if ($pesanan['status'] == 'Dikirim') {
                                 $badge = 'badge-info';
+                                $isHide = '';
                             }else if ($pesanan['status'] == 'Diterima') {
                                 $badge = 'badge-success';
+                                $isHide = 'disabled';
                             }
+                                // $isHide = 'disabled';
+                            } else {
+                                if ($pesanan['status'] == 'Dipesan') {
+                                $badge = "badge-warning";
+                                $isHide = 'disabled';
+                            } else if ($pesanan['status'] == 'Dikirim') {
+                                $badge = 'badge-info';
+                                $isHide = 'disabled';
+                            }else if ($pesanan['status'] == 'Diterima') {
+                                $badge = 'badge-success';
+                                $isHide = 'disabled';
+                            }
+                            }
+                            
                             ?>
                       <tbody>
                         <tr>
@@ -57,6 +75,7 @@
                           <td><div class="badge <?=$badge?>"><?= $pesanan['status']?></div></td>
                           <td>
                             <button data-target="#hapusModal<?=$pesanan['id_barang_pesanan']?>" data-toggle="modal" class="btn btn-danger">Hapus</button>
+                            <button <?=$isHide?> data-target="#hapusModal<?=$pesanan['id_barang_pesanan']?>" data-toggle="modal" class="btn btn-success <?=$isHide?>">Terima Barang</button>
                           </td>
                         </tr>
                       </tbody> 

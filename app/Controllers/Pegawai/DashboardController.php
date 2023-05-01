@@ -13,7 +13,7 @@ class DashboardController extends BaseController
             'title' => 'Dashboard - Pegawai',
             'uri' => $uri
         ];
-        if (session('role') == '2') {
+        if (session('logged_in') == true) {
             return view('pages/pegawai/dashboard', $data);
         } else {
             return redirect()->back();

@@ -3,19 +3,19 @@
 namespace App\Controllers\Pegawai;
 
 use App\Controllers\BaseController;
-use App\Models\BarangPesanan;
+use App\Models\BarangKeluar;
 use App\Models\SupplierModel;
 
 class BarangKeluarController extends BaseController
 {
     public function index()
     {
-        $barangpesanan = new BarangPesanan();
+        $barangkeluar = new BarangKeluar();
 
-        $getAllData = $barangpesanan->findAll();
+        $getAllData = $barangkeluar->getAllDataBarangKeluar();
         $data = [
             'title' => 'Barang Keluar',
-            'barangpesanan' => $getAllData,
+            'barangkeluar' => $getAllData,
         ];
         return view('pages/pegawai/barang-keluar', $data);
     }

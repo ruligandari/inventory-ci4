@@ -26,10 +26,7 @@ class AuthFilter implements FilterInterface
     public function before(RequestInterface $request, $arguments = null)
     {
         if (!session()->get('logged_in')) {
-            session()->setFlashdata('msg', 'Anda belum login role 1');
-            return redirect()->to('login');
-        }  else if (!session()->get('logged_in')) {
-            session()->setFlashdata('msg', 'Anda belum login role 2');
+            session()->setFlashdata('msg', 'Anda belum login');
             return redirect()->to('login');
         }
         

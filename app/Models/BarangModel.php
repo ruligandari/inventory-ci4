@@ -39,6 +39,7 @@ class BarangModel extends Model
     protected $afterFind      = [];
     protected $beforeDelete   = [];
     protected $afterDelete    = [];
+    
     public function getDataBarangById($id_barang){
         $builder = $this->db->table('barang');
         $builder->select('*');

@@ -13,7 +13,7 @@ class PesanBarangController extends BaseController
     {
         $barangpesanan = new BarangPesanan();
         
-        $getAllData = $barangpesanan->findAll();
+        $getAllData = $barangpesanan->getAllData();
         $data = [
             'title' => 'Pesan Barang',
             'barangpesanan' => $getAllData,
@@ -21,6 +21,7 @@ class PesanBarangController extends BaseController
         ];
         return view('pages/pegawai/pesan-barang', $data);
     }
+    
     public function getDataBarangById(){
         $id_barang = $this->request->getVar('id_barang');
         $barangModel = new BarangModel();
@@ -47,14 +48,14 @@ class PesanBarangController extends BaseController
         $barangpesanan = new BarangPesanan();
         $tanggal_pesan = $this->request->getVar('tanggal_pesan');
         $id_supplier = $this->request->getVar('id_supplier');
-        $nama_barang = $this->request->getVar('nama_barang');
+        $id_barang = $this->request->getVar('id_barang');
         $jumlah = $this->request->getVar('jumlah');
         $status = 'Dipesan';
 
         $data = [
             'tanggal_pesan' => $tanggal_pesan,
             'id_supplier' => $id_supplier,
-            'nama_barang' => $nama_barang,
+            'id_barang' => $id_barang,
             'jumlah' => $jumlah,
             'status' => $status,
         ];

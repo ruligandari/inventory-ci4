@@ -30,22 +30,23 @@ class AuthController extends BaseController
                     'role' => $data['role'],
                     'logged_in' => TRUE
                 ];
-
-                $verify_role = $data['role'];
-                switch ($verify_role) {
-                    case 1:
-                        session()->set($ses_data);
-                        return redirect()->to('/dashboard');
-                        break;
-                    case 2:
-                        session()->set($ses_data);
-                        return redirect()->to('/pegawai/home');
-                        break;
-                    case 3:
-                        session()->set($ses_data);
-                        return redirect()->to('/supplier/dashboard');
-                        break;
-                }
+                session()->set($ses_data);
+                return redirect()->to('/pegawai/home');
+                // $verify_role = $data['role'];
+                // switch ($verify_role) {
+                //     case 1:
+                //         session()->set($ses_data);
+                //         return redirect()->to('/pegawai/home');
+                //         break;
+                //     case 2:
+                //         session()->set($ses_data);
+                //         return redirect()->to('/pegawai/home');
+                //         break;
+                //     case 3:
+                //         session()->set($ses_data);
+                //         return redirect()->to('/supplier/dashboard');
+                //         break;
+                // }
             } else {
                 session()->setFlashdata('msg', 'Password Salah');
                 return redirect()->to('/login');

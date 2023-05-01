@@ -53,7 +53,7 @@
                           <td><?= $pesanan['jumlah']?></td>
                           <td><div class="badge <?=$badge?>"><?= $pesanan['status']?></div></td>
                           <td>
-                            <button data-target="#hapusModal<?=$pesanan['id_barang_pesanan']?>" data-toggle="modal" class="btn btn-primary">Masuk</button>
+                            <button data-target="#hapusModal<?=$pesanan['id_barang_pesanan']?>" data-toggle="modal" class="btn btn-primary">Keluar</button>
                           </td>
                         </tr>
                       </tbody> 

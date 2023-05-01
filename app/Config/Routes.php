@@ -41,6 +41,8 @@ $routes->get('/login/supplier', 'Admin\AuthSupplierController::index');
 $routes->post('/login/supplier/auth', 'Admin\AuthSupplierController::auth');
 $routes->get('/logout/supplier', 'Admin\AuthSupplierController::logout');
 
+$routes->get('getDataId','Pegawai\PesanBarangController::getDataBarangById');
+
 // Routes Pegawai
 $routes->group('pegawai', ['filter' => 'AuthFilter'], static function ($routes){
     $routes->get('home', 'Pegawai\DashboardController::index');
@@ -68,15 +70,17 @@ $routes->group('pegawai', ['filter' => 'AuthFilter'], static function ($routes){
     $routes->get('barang-keluar', 'Pegawai\BarangKeluarController::index');
     $routes->post('barang-keluar/save', 'Pegawai\BarangKeluarController::save');
 });
-
-$routes->get('getDataId','Pegawai\PesanBarangController::getDataBarangById');
-
+// Routes Supplier
 $routes->group('supplier', ['filter' => 'AuthSupplierFilter'], static function ($routes){
     $routes->get('dashboard', 'Supplier\DashboardController::index');
     $routes->get('pesanan', 'Supplier\PesananController::index');
     $routes->get('kirim/(:any)', 'Supplier\PesananController::kirim/$1');
     
 });
+
+// $routes->group('pimpinan', static function ($routes){
+//     $routes->get('dashboard', 'Pimpinan\DashboardController::index');
+// });
 
 /*
  * --------------------------------------------------------------------

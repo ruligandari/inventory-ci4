@@ -92,10 +92,12 @@ use Config\Services;
               <li class="nav-item <?= (service('uri')->getSegment(2) === 'supplier') ? 'active' : ''?>">
                 <a href="<?= base_url('pegawai/supplier')?>" class="nav-link" ><i class="fas fa-print"></i> <span>Data Supplier</span></a>
               </li>
+              <?php if ($_SESSION['role'] !== '1'):?>
               <li class="menu-header">User</li>
               <li class="nav-item <?= (service('uri')->getSegment(2) === 'users') ? 'active' : ''?>">
                 <a href="<?= base_url('pegawai/users')?>" class="nav-link "> <i class="fas fa-users"></i> <span>Data User</span></a>
               </li>
+              <?php endif;?>
         </aside>
       </div>
 <!-- End Sidebar -->
