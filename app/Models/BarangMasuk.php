@@ -57,4 +57,21 @@ class BarangMasuk extends Model
 
         return $result;
     }
+
+    public function getDataById($id){
+        $builder = $this->db->table('barang_masuk');
+        $builder->join('barang', 'barang.id_barang = barang_masuk.id_barang');
+        $builder->where('id_barang_masuk', $id);
+        $query = $builder->get();
+        $result = $query->getRowArray();
+
+        return $result;
+    }
+
+    public function updateDataStatusById($id){
+        $builder = $this->db->table('barang_masuk');
+        $builder->set('status', 'Dikeluarkan');
+        $builder->where('id_barang_masuk', $id);
+        $builder->update();
+    }
 }

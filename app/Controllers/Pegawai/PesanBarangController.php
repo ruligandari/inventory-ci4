@@ -78,13 +78,14 @@ class PesanBarangController extends BaseController
     {
         $barangpesanan = new BarangPesanan();
         $datas = $barangpesanan->getDataById($id);
+        $barangpesanan->updateStatusById($id);
         $data = [
             'id_supplier' => $datas[0]['id_supplier'],
             'id_barang' => $datas[0]['id_barang'],
             'tanggal_pesan' => $datas[0]['tanggal_pesan'],
             'harga' => $datas[0]['harga'],
             'jumlah' => $datas[0]['jumlah'],
-            'status' => 'Diterima',
+            'status' => 'Masuk',
         ];
         $barangmasuk = new BarangMasuk();
         $query = $barangmasuk->insert($data);

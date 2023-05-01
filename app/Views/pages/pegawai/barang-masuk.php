@@ -36,12 +36,12 @@
                       <?php $no = 1?>
                       <?php foreach ($barangpesanan as $pesanan): ?>
                         <?php 
-                            if ($pesanan['status'] == 'Dipesan') {
-                                $badge = "badge-warning";
-                            } else if ($pesanan['status'] == 'Dikirim') {
+                            if ($pesanan['status'] == 'Dikeluarkan') {
+                                $badge = "badge-danger";
+                                $isDisable = 'disabled';
+                            } else if ($pesanan['status'] == 'Masuk') {
                                 $badge = 'badge-info';
-                            }else if ($pesanan['status'] == 'Diterima') {
-                                $badge = 'badge-success';
+                                $isDisable = '';
                             }
                             ?>
                       <tbody>
@@ -53,7 +53,7 @@
                           <td><?= $pesanan['jumlah']?></td>
                           <td><div class="badge <?=$badge?>"><?= $pesanan['status']?></div></td>
                           <td>
-                            <button data-target="#hapusModal<?=$pesanan['id_barang_masuk']?>" data-toggle="modal" class="btn btn-primary">Keluar</button>
+                            <button <?= $isDisable?> data-target="#hapusModal<?=$pesanan['id_barang_masuk']?>" data-toggle="modal" class="btn btn-primary <?= $isDisable?>">Keluar</button>
                           </td>
                         </tr>
                       </tbody> 
@@ -80,14 +80,14 @@
           <span aria-hidden="true">&times;</span>
         </button>
       </div>
-      <form action="<?= base_url('pegawai/users/delete/').$pesanan['id_barang_masuk']?>" method="POST">
+      <form action="<?= base_url('pegawai/barang-masuk/update/').$pesanan['id_barang_masuk']?>" method="POST">
       <?= csrf_field()?>
       <div class="modal-body">
-        Apakah anda yakin ingin menghapus pesanan <?=$pesanan['nama_barang']?> ?
+        Apakah anda yakin ingin mengeluarkan barang <?=$pesanan['nama_barang']?> ?
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-        <button type="submit" class="btn btn-danger">Delete</button>
+        <button type="submit" class="btn btn-success">Keluar</button>
       </div>
       </form>
     </div>

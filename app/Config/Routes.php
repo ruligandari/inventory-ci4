@@ -67,6 +67,7 @@ $routes->group('pegawai', ['filter' => 'AuthFilter'], static function ($routes){
     
     $routes->get('barang-masuk', 'Pegawai\BarangMasukController::index');
     $routes->post('barang-masuk/save', 'Pegawai\BarangMasukController::save');
+    $routes->post('barang-masuk/update/(:any)', 'Pegawai\BarangMasukController::update/$1');
     
     $routes->get('barang-keluar', 'Pegawai\BarangKeluarController::index');
     $routes->post('barang-keluar/save', 'Pegawai\BarangKeluarController::save');

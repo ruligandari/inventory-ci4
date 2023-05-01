@@ -14,7 +14,14 @@ class BarangKeluar extends Model
     protected $returnType       = 'array';
     protected $useSoftDeletes   = false;
     protected $protectFields    = true;
-    protected $allowedFields    = [];
+    protected $allowedFields    = [
+        'id_supplier',
+        'id_barang',
+        'tanggal_pesan',
+        'harga',
+        'jumlah',
+        'status',
+    ];
 
     // Dates
     protected $useTimestamps = false;

@@ -37,12 +37,8 @@
                       <?php $no = 1?>
                       <?php foreach ($barangkeluar as $barang): ?>
                         <?php 
-                            if ($barang['status'] == 'Dipesan') {
+                            if ($barang['status'] == 'Keluar') {
                                 $badge = "badge-warning";
-                            } else if ($barang['status'] == 'Dikirim') {
-                                $badge = 'badge-info';
-                            }else if ($barang['status'] == 'Diterima') {
-                                $badge = 'badge-success';
                             }
                             ?>
                         <tr>

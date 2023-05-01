@@ -78,4 +78,11 @@ class BarangPesanan extends Model
         $builder->update();
     }
 
+    public function updateStatusById($id){
+        $builder = $this->db->table('barang_pesanan');
+        $builder->set('status', 'Diterima');
+        $builder->where('id_barang_pesanan', $id);
+        $builder->update();
+    }
+
 }

@@ -74,7 +74,7 @@
                           <td><?= $pesanan['jumlah']?></td>
                           <td><div class="badge <?=$badge?>"><?= $pesanan['status']?></div></td>
                           <td>
-                            <button data-target="#hapusModal<?=$pesanan['id_barang_pesanan']?>" data-toggle="modal" class="btn btn-danger">Hapus</button>
+                            <button <?=$isHide?> data-target="#hapusModal<?=$pesanan['id_barang_pesanan']?>" data-toggle="modal" class="btn btn-danger <?=$isHide?>">Hapus</button>
                             <button <?=$isHide?> data-target="#terimaModal<?=$pesanan['id_barang_pesanan']?>" data-toggle="modal" class="btn btn-success <?=$isHide?>">Terima Barang</button>
                           </td>
                         </tr>
@@ -108,7 +108,7 @@
         Apakah anda yakin ingin menghapus pesanan <?=$pesanan['nama_barang']?> ?
       </div>
       <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button> 
         <button type="submit" class="btn btn-danger">Delete</button>
       </div>
       </form>
