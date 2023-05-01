@@ -53,7 +53,7 @@
                           <td><?= $pesanan['jumlah']?></td>
                           <td><div class="badge <?=$badge?>"><?= $pesanan['status']?></div></td>
                           <td>
-                            <button data-target="#hapusModal<?=$pesanan['id_barang_pesanan']?>" data-toggle="modal" class="btn btn-primary">Keluar</button>
+                            <button data-target="#hapusModal<?=$pesanan['id_barang_masuk']?>" data-toggle="modal" class="btn btn-primary">Keluar</button>
                           </td>
                         </tr>
                       </tbody> 
@@ -71,7 +71,7 @@
 
 <!-- Modal -->
 <?php foreach ($barangpesanan as $pesanan) :?>
-<div class="modal fade" id="hapusModal<?=$pesanan['id_barang_pesanan']?>" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+<div class="modal fade" id="hapusModal<?=$pesanan['id_barang_masuk']?>" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
   <div class="modal-dialog" role="document">
     <div class="modal-content">
       <div class="modal-header">
@@ -80,7 +80,7 @@
           <span aria-hidden="true">&times;</span>
         </button>
       </div>
-      <form action="<?= base_url('pegawai/users/delete/').$pesanan['id_barang_pesanan']?>" method="POST">
+      <form action="<?= base_url('pegawai/users/delete/').$pesanan['id_barang_masuk']?>" method="POST">
       <?= csrf_field()?>
       <div class="modal-body">
         Apakah anda yakin ingin menghapus pesanan <?=$pesanan['nama_barang']?> ?

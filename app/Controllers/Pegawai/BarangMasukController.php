@@ -3,16 +3,16 @@
 namespace App\Controllers\Pegawai;
 
 use App\Controllers\BaseController;
-use App\Models\BarangPesanan;
+use App\Models\BarangMasuk;
 use App\Models\SupplierModel;
 
 class BarangMasukController extends BaseController
 {
     public function index()
     {
-        $barangpesanan = new BarangPesanan();
+        $barangpesanan = new BarangMasuk();
 
-        $getAllData = $barangpesanan->findAll();
+        $getAllData = $barangpesanan->getAllDataBarangMasuk();
         $data = [
             'title' => 'Barang Masuk',
             'barangpesanan' => $getAllData,

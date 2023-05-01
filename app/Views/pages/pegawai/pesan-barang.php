@@ -75,7 +75,7 @@
                           <td><div class="badge <?=$badge?>"><?= $pesanan['status']?></div></td>
                           <td>
                             <button data-target="#hapusModal<?=$pesanan['id_barang_pesanan']?>" data-toggle="modal" class="btn btn-danger">Hapus</button>
-                            <button <?=$isHide?> data-target="#hapusModal<?=$pesanan['id_barang_pesanan']?>" data-toggle="modal" class="btn btn-success <?=$isHide?>">Terima Barang</button>
+                            <button <?=$isHide?> data-target="#terimaModal<?=$pesanan['id_barang_pesanan']?>" data-toggle="modal" class="btn btn-success <?=$isHide?>">Terima Barang</button>
                           </td>
                         </tr>
                       </tbody> 
@@ -110,6 +110,30 @@
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
         <button type="submit" class="btn btn-danger">Delete</button>
+      </div>
+      </form>
+    </div>
+  </div>
+</div>
+<?php endforeach?>
+<?php foreach ($barangpesanan as $pesanan) :?>
+<div class="modal fade" id="terimaModal<?=$pesanan['id_barang_pesanan']?>" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Hapus?</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <form action="<?= base_url('pegawai/pesan-barang/update/').$pesanan['id_barang_pesanan']?>" method="POST">
+      <?= csrf_field()?>
+      <div class="modal-body">
+        Apakah anda yakin ingin memasukan barang <?=$pesanan['nama_barang']?> ?
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        <button type="submit" class="btn btn-success">Masuk</button>
       </div>
       </form>
     </div>

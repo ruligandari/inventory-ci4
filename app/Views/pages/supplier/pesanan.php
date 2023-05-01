@@ -38,11 +38,14 @@
                         <?php 
                             if ($pesan['status'] == 'Dipesan') {
                                 $badge = "badge-warning";
+                                $isHide = '';
                             } else if ($pesan['status'] == 'Dikirim') {
                                 $badge = 'badge-info';
+                                $isHide = 'disabled';
                             }else if ($pesan['status'] == 'Diterima') {
                                 $badge = 'badge-success';
-                            }
+                                $isHide = 'disabled';
+                            } 
                             ?>
                       <tbody>
                         <tr>
@@ -53,7 +56,8 @@
                           <td><?= $pesan['jumlah']?></td>
                           <td><div class="badge <?=$badge?>"><?= $pesan['status']?></div></td>
                           <td>
-                            <a href="<?= base_url('supplier/kirim/').$pesan['id_barang_pesanan']?>" class="btn btn-success">Kirim Barang</a>
+                           
+                            <button <?= $isHide?> data-target="#kirimModal<?=$pesan['id_barang_pesanan']?>" data-toggle="modal"  class="btn btn-success <?= $isHide?>">Kirim Barang</button>
                           </td>
                         </tr>
                       </tbody> 
@@ -70,5 +74,28 @@
 
 
 <!-- Modal -->
-
+<?php foreach ($pesanan as $pesan) :?>
+<div class="modal fade" id="kirimModal<?=$pesan['id_barang_pesanan']?>" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Hapus?</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <form action="<?= base_url('supplier/kirim/').$pesan['id_barang_pesanan']?>" method="GET">
+      <?= csrf_field()?>
+      <div class="modal-body">
+        Apakah anda yakin ingin mengirimkan pesanan <?=$pesan['nama_barang']?> ?
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        <button type="submit" class="btn btn-success">Kirimkan</button>
+      </div>
+      </form>
+    </div>
+  </div>
+</div>
+<?php endforeach?>
 <?= $this->endSection()?>

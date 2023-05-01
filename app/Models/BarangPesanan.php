@@ -49,6 +49,17 @@ class BarangPesanan extends Model
         return $result;
     }
 
+    public function getDataById($id)
+    {
+        $builder = $this->db->table('barang_pesanan');
+        $builder->join('barang', 'barang.id_barang = barang_pesanan.id_barang');
+        $builder->where('barang_pesanan.id_barang_pesanan', $id);
+        $query = $builder->get();
+        $result = $query->getResultArray();
+
+        return $result;
+    }
+
     public function pesananBySupplier($id)
     {
         $builder = $this->db->table('barang_pesanan');
