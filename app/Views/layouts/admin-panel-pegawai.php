@@ -85,7 +85,7 @@ use Config\Services;
                 <a href="#" class="nav-link has-dropdown " data-toggle="dropdown"><i class="fas fa-print"></i> <span>Laporan Barang</span></a>
                 <ul class="dropdown-menu">
                   <li><a class="nav-link" href="<?= base_url('pegawai/laporan-masuk')?>">Laporan Barang Masuk</a></li>
-                  <li><a class="nav-link" href="#">Laporan Barang Keluar</a></li>
+                  <li><a class="nav-link" href="<?= base_url('pegawai/laporan-keluar')?>">Laporan Barang Keluar</a></li>
                 </ul>
               </li>
               <li class="menu-header">Supplier</li>

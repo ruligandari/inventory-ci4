@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<meta http-equiv="refresh" content="1;url=<?=base_url('pegawai/laporan-masuk')?>">
+<meta http-equiv="refresh" content="1;url=<?=base_url('pegawai/laporan-keluar')?>">
 <head>
     <title><?= $title?> - <?= date('d-m-Y')?></title>
     <link href="<?= base_url('assets/css/styles.css')?>" rel="stylesheet"/>

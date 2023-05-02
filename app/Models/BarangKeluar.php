@@ -57,4 +57,15 @@ class BarangKeluar extends Model
 
         return $result;
     }
+
+    public function getDataByDate($id)
+    {
+        $builder = $this->db->table('barang_keluar');
+        $builder->join('barang', 'barang.id_barang = barang_keluar.id_barang');
+        $builder->like('tanggal_pesan', $id);
+        $query = $builder->get();
+        $result = $query->getResultArray();
+
+        return $result;
+    }
 }
