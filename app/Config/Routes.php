@@ -46,6 +46,10 @@ $routes->get('getDataId','Pegawai\PesanBarangController::getDataBarangById');
 // Routes Pegawai
 $routes->group('pegawai', ['filter' => 'AuthFilter'], static function ($routes){
     $routes->get('home', 'Pegawai\DashboardController::index');
+    
+    $routes->get('home/get_data', 'Pegawai\DashboardController::get_data');
+    $routes->get('home/get_data_keluar', 'Pegawai\DashboardController::get_data_keluar');
+
     $routes->get('users', 'Pegawai\UsersController::index');
     $routes->get('users/create', 'Pegawai\UsersController::create');
     $routes->post('users/save', 'Pegawai\UsersController::save');
