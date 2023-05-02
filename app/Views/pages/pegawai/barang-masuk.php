@@ -66,7 +66,7 @@
           </div>
           <!-- end Statistik -->
         </section>
-      </div>
+</div>
 
 
 <!-- Modal -->

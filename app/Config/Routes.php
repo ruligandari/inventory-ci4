@@ -71,6 +71,11 @@ $routes->group('pegawai', ['filter' => 'AuthFilter'], static function ($routes){
     
     $routes->get('barang-keluar', 'Pegawai\BarangKeluarController::index');
     $routes->post('barang-keluar/save', 'Pegawai\BarangKeluarController::save');
+
+    $routes->get('laporan-masuk', 'Pegawai\LaporanMasukController::index');
+    $routes->post('laporan-masuk/create', 'Pegawai\LaporanMasukController::create');
+
+    $routes->get('laporan-keluar', 'Pegawai\LaporanKeluarController::index');
 });
 // Routes Supplier
 $routes->group('supplier', ['filter' => 'AuthSupplierFilter'], static function ($routes){

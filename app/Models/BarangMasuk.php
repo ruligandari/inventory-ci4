@@ -74,4 +74,15 @@ class BarangMasuk extends Model
         $builder->where('id_barang_masuk', $id);
         $builder->update();
     }
+
+    public function getDataByDate($id)
+    {
+        $builder = $this->db->table('barang_masuk');
+        $builder->join('barang', 'barang.id_barang = barang_masuk.id_barang');
+        $builder->like('tanggal_pesan', $id);
+        $query = $builder->get();
+        $result = $query->getResultArray();
+
+        return $result;
+    }
 }

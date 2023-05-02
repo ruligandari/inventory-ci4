@@ -84,7 +84,7 @@ use Config\Services;
               <li class="nav-item dropdown">
                 <a href="#" class="nav-link has-dropdown " data-toggle="dropdown"><i class="fas fa-print"></i> <span>Laporan Barang</span></a>
                 <ul class="dropdown-menu">
-                  <li><a class="nav-link" href="#">Laporan Barang Masuk</a></li>
+                  <li><a class="nav-link" href="<?= base_url('pegawai/laporan-masuk')?>">Laporan Barang Masuk</a></li>
                   <li><a class="nav-link" href="#">Laporan Barang Keluar</a></li>
                 </ul>
               </li>
@@ -121,7 +121,7 @@ use Config\Services;
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.nicescroll/3.7.6/jquery.nicescroll.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.24.0/moment.min.js"></script>
   <script src="https://cdn.datatables.net/1.13.4/js/jquery.dataTables.min.js"></script>
-  <script src="../assets/js/stisla.js"></script>
+  <script src="<?= base_url()?>/assets/js/stisla.js"></script>
 
   <!-- JS Libraies -->
   <script src="<?=base_url()?>/node_modules/simpleweather/jquery.simpleWeather.min.js"></script>
