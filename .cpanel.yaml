@@ -1,5 +1,5 @@
 ---
 deployment:
 tasks:
-  - export DEPLOYPATH=/home/cavs3975/public_html/cisnu/git
+  - export DEPLOYPATH=/home/cavs3975/public_html/cisnu
   - /bin/cp -r * $DEPLOYPATH
