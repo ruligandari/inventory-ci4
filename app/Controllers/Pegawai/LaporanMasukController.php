@@ -4,6 +4,7 @@ namespace App\Controllers\Pegawai;
 
 use App\Controllers\BaseController;
 use App\Models\BarangMasuk;
+use Mpdf\Mpdf;
 
 class LaporanMasukController extends BaseController
 {
@@ -20,14 +21,14 @@ class LaporanMasukController extends BaseController
     }
 
     public function create(){
-        $tanggal = $this->request->getVar('month');
-        $barang = new BarangMasuk();
-        $laporanMasuk = $barang->getDataByDate($tanggal);
-        $data = [
-            'title' => 'Laporan Barang Masuk',
-            'laporanBarang' => $laporanMasuk,
+            $tanggal = $this->request->getVar('month');
+            $barang = new BarangMasuk();
+            $laporanMasuk = $barang->getDataByDate($tanggal);
+            $data = [
+                'title' => 'Laporan Barang Masuk',
+                'laporanBarang' => $laporanMasuk,
         ];
-
         return view('layouts/print', $data);
-    }
+        
+        }
 }

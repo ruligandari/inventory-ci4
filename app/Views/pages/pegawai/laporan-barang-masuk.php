@@ -22,7 +22,7 @@
                     <label>Pilih Bulan</label>
                     <input type="month" id="month" value="<?= date('Y-m') ?>" class="form-control" name="month">
                   </div>
-                    <button type="submit" class="btn btn-success">Cetak Laporan Barang Masuk</button>
+                    <button type="submit" name="cetak" class="btn btn-success">Cetak</button>
                 </div>
             </form>
                 <div class="card-body">
@@ -118,7 +118,5 @@
             table.draw();
         });
     });
-    
-    
 </script>
 <?= $this->endSection()?>

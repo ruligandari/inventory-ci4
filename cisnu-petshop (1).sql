@@ -3,9 +3,9 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Waktu pembuatan: 13 Bulan Mei 2023 pada 07.11
+-- Waktu pembuatan: 24 Bulan Mei 2023 pada 10.28
 -- Versi server: 10.4.27-MariaDB
--- Versi PHP: 8.1.12
+-- Versi PHP: 8.2.0
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -50,7 +50,11 @@ INSERT INTO `barang` (`id_barang`, `nama_barang`, `id_supplier`, `harga`) VALUES
 ('BR-0009', 'Takari Petindo Koi 100gr', 'SUP0001', 3500),
 ('BR-0010', 'Serokan Seser Ikan 10cm', 'SUP0001', 3000),
 ('BR-0011', 'Pasir Gumpal Wangi Zeolit 25kg', 'SUP0001', 24000),
-('BR-0012', 'Kapas Wonder Filter Busa', 'SUP0001', 1500);
+('BR-0012', 'Kapas Wonder Filter Busa', 'SUP0001', 1500),
+('', 'Kristal Putih', 'SUP001', 150000),
+('', 'kristal Hitam', 'SUP002', 150000),
+('BR-0014', 'Kristal Putih', 'SUP001', 150000),
+('BR-0015', 'kristal Hitam', 'SUP002', 150000);
 
 -- --------------------------------------------------------
 
@@ -111,7 +115,8 @@ INSERT INTO `barang_keluar` (`id_barang_keluar`, `id_supplier`, `id_barang`, `ta
 (36, 'SUP0001', 'BR-0012', '2023-04-26', 1500, 6, 'Keluar'),
 (85, 'SUP0001', 'BR-0001', '2023-05-01', 250000, 8, 'Keluar'),
 (86, 'SUP0001', 'BR-0002', '2023-05-01', 140000, 4, 'Keluar'),
-(87, 'SUP0001', 'BR-0002', '2023-05-01', 140000, 4, 'Keluar');
+(87, 'SUP0001', 'BR-0002', '2023-05-01', 140000, 4, 'Keluar'),
+(88, 'SUP0001', 'BR-0001', '2023-05-17', 250000, 8, 'Keluar');
 
 -- --------------------------------------------------------
 
@@ -138,7 +143,8 @@ INSERT INTO `barang_masuk` (`id_barang_masuk`, `id_supplier`, `id_barang`, `tang
 (2, 'SUP0001', 'BR-0002', '2023-05-01', 140000, 4, 'Dikeluarkan'),
 (3, 'SUP0001', 'BR-0002', '2023-05-01', 140000, 4, 'Dikeluarkan'),
 (4, 'SUP0001', 'BR-0002', '2023-05-01', 140000, 4, 'Masuk'),
-(5, 'SUP0001', 'BR-0005', '2023-05-02', 29000, 10, 'Masuk');
+(5, 'SUP0001', 'BR-0005', '2023-05-02', 29000, 10, 'Masuk'),
+(6, 'SUP0001', 'BR-0001', '2023-05-17', 250000, 8, 'Dikeluarkan');
 
 -- --------------------------------------------------------
 
@@ -161,7 +167,8 @@ CREATE TABLE `barang_pesanan` (
 
 INSERT INTO `barang_pesanan` (`id_barang_pesanan`, `id_supplier`, `id_barang`, `tanggal_pesan`, `jumlah`, `status`) VALUES
 (3, 'SUP0001  ', 'BR-0002', '2023-05-01', 4, 'Diterima'),
-(4, 'SUP0001  ', 'BR-0005', '2023-05-02', 10, 'Diterima');
+(4, 'SUP0001  ', 'BR-0005', '2023-05-02', 10, 'Diterima'),
+(5, 'SUP0001  ', 'BR-0001', '2023-05-17', 8, 'Diterima');
 
 -- --------------------------------------------------------
 
@@ -210,6 +217,27 @@ CREATE TABLE `supplier` (
 INSERT INTO `supplier` (`id_supplier`, `nama`, `email`, `password`, `alamat`, `no_hp`) VALUES
 ('SUP0001  ', 'Supplier 1', 'supplier1@gmail.com', '$2y$10$ILW7oldua0SMsoQvv5WmJePWwj28MBhA59aD2cxE95MwrP2WY1nzu', 'Jl. Siliwangi No. 1 Kuningan', '087678876654'),
 ('SUP0002', 'Supplier', 'supplier@gmail.com', '$2y$10$yUAwyy/Ub9tQT.nlGN6i9.m.irg1yA0wWEv2OW7mEmB3BkmVM8DmS', 'Jl. Siliwangi No. 5 Kuningan', '+6285321587049');
+
+-- --------------------------------------------------------
+
+--
+-- Struktur dari tabel `transaksi`
+--
+
+CREATE TABLE `transaksi` (
+  `id_transaksi` int(11) NOT NULL,
+  `id_barang` varchar(255) NOT NULL,
+  `qty` int(11) NOT NULL,
+  `total` int(11) NOT NULL,
+  `tanggal` date NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data untuk tabel `transaksi`
+--
+
+INSERT INTO `transaksi` (`id_transaksi`, `id_barang`, `qty`, `total`, `tanggal`) VALUES
+(1, 'BR-0001', 10, 2500000, '2023-05-24');
 
 -- --------------------------------------------------------
 
@@ -270,6 +298,12 @@ ALTER TABLE `supplier`
   ADD PRIMARY KEY (`id_supplier`);
 
 --
+-- Indeks untuk tabel `transaksi`
+--
+ALTER TABLE `transaksi`
+  ADD PRIMARY KEY (`id_transaksi`);
+
+--
 -- Indeks untuk tabel `users`
 --
 ALTER TABLE `users`
@@ -283,25 +317,31 @@ ALTER TABLE `users`
 -- AUTO_INCREMENT untuk tabel `barang_keluar`
 --
 ALTER TABLE `barang_keluar`
-  MODIFY `id_barang_keluar` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=88;
+  MODIFY `id_barang_keluar` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=89;
 
 --
 -- AUTO_INCREMENT untuk tabel `barang_masuk`
 --
 ALTER TABLE `barang_masuk`
-  MODIFY `id_barang_masuk` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `id_barang_masuk` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
 -- AUTO_INCREMENT untuk tabel `barang_pesanan`
 --
 ALTER TABLE `barang_pesanan`
-  MODIFY `id_barang_pesanan` int(11) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `id_barang_pesanan` int(11) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- AUTO_INCREMENT untuk tabel `migrations`
 --
 ALTER TABLE `migrations`
   MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+
+--
+-- AUTO_INCREMENT untuk tabel `transaksi`
+--
+ALTER TABLE `transaksi`
+  MODIFY `id_transaksi` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT untuk tabel `users`

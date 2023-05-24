@@ -62,7 +62,7 @@
 
 <!-- Modal -->
 <?php foreach ($users as $user) :?>
-<div class="modal fade" id="hapusModal<?=$user['id']?>" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+<div class="modal fade" id="hapusModal<?=htmlspecialchars($user['id'],)?>" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
   <div class="modal-dialog" role="document">
     <div class="modal-content">
       <div class="modal-header">

@@ -14,6 +14,7 @@ use Config\Services;
   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
   <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
   <link rel="stylesheet" href="https://cdn.datatables.net/1.13.4/css/jquery.dataTables.min.css">
+  <link rel="stylesheet" href="https://cdn.datatables.net/buttons/2.3.6/css/buttons.dataTables.min.css">
   <!-- CSS Libraries -->
   <link rel="stylesheet" href="<?= base_url()?>/node_modules/jqvmap/dist/jqvmap.min.css">
   <link rel="stylesheet" href="<?= base_url()?>/node_modules/weathericons/css/weather-icons.min.css">
@@ -75,6 +76,7 @@ use Config\Services;
               <li class="nav-item dropdown">
                 <a href="#" class="nav-link has-dropdown" data-toggle="dropdown"><i class="fas fa-box"></i> <span>Data Barang</span></a>
                 <ul class="dropdown-menu">
+                  <li><a class="nav-link" href="<?=base_url('pegawai/daftar-barang')?>">Data Barang</a></li>
                   <li><a class="nav-link" href="<?=base_url('pegawai/pesan-barang')?>">Pesan Barang</a></li>
                   <li><a class="nav-link" href="<?= base_url('pegawai/barang-masuk')?>">Barang Masuk</a></li>
                   <li><a class="nav-link" href="<?= base_url('pegawai/barang-keluar')?>">Barang Keluar</a></li>
@@ -90,6 +92,10 @@ use Config\Services;
               </li>
               <li class="menu-header">Supplier</li>
               <li class="nav-item <?= (service('uri')->getSegment(2) === 'supplier') ? 'active' : ''?>">
+                <a href="<?= base_url('pegawai/supplier')?>" class="nav-link" ><i class="fas fa-print"></i> <span>Data Supplier</span></a>
+              </li>
+              <li class="menu-header">Transaksi</li>
+              <li class="nav-item <?= (service('uri')->getSegment(2) === 'transaksi') ? 'active' : ''?>">
                 <a href="<?= base_url('pegawai/supplier')?>" class="nav-link" ><i class="fas fa-print"></i> <span>Data Supplier</span></a>
               </li>
               <?php if ($_SESSION['role'] !== '1'):?>
