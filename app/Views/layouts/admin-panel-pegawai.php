@@ -44,12 +44,6 @@ use Config\Services;
             <img alt="image" src="<?= base_url()?>/assets/img/avatar/avatar-1.png" class="rounded-circle mr-1">
             <div class="d-sm-none d-lg-inline-block">Hi, <?= session('nama')?></div></a>
             <div class="dropdown-menu dropdown-menu-right">
-              <a href="features-profile.html" class="dropdown-item has-icon">
-                <i class="far fa-user"></i> Profile
-              </a>
-              <a href="features-settings.html" class="dropdown-item has-icon">
-                <i class="fas fa-cog"></i> Settings
-              </a>
               <div class="dropdown-divider"></div>
               <a href="<?=base_url('logout')?>" class="dropdown-item has-icon text-danger">
                 <i class="fas fa-sign-out-alt"></i> Logout
@@ -90,14 +84,19 @@ use Config\Services;
                   <li><a class="nav-link" href="<?= base_url('pegawai/laporan-keluar')?>">Laporan Barang Keluar</a></li>
                 </ul>
               </li>
+              <?php if($_SESSION['role'] !== '1'):?>
               <li class="menu-header">Supplier</li>
               <li class="nav-item <?= (service('uri')->getSegment(2) === 'supplier') ? 'active' : ''?>">
                 <a href="<?= base_url('pegawai/supplier')?>" class="nav-link" ><i class="fas fa-print"></i> <span>Data Supplier</span></a>
               </li>
+<<<<<<< HEAD
               <li class="menu-header">Transaksi</li>
               <li class="nav-item <?= (service('uri')->getSegment(2) === 'transaksi') ? 'active' : ''?>">
                 <a href="<?= base_url('pegawai/supplier')?>" class="nav-link" ><i class="fas fa-print"></i> <span>Data Supplier</span></a>
               </li>
+=======
+              <?php endif;?>
+>>>>>>> 699c85e524d07a2597fb5ce17ad1bf04708f09cd
               <?php if ($_SESSION['role'] !== '1'):?>
               <li class="menu-header">User</li>
               <li class="nav-item <?= (service('uri')->getSegment(2) === 'users') ? 'active' : ''?>">
