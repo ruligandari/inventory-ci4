@@ -30,7 +30,9 @@
                           <th>Supplier</th>
                           <th>Jumlah</th>
                           <th>Status</th>
+                          <?php if($_SESSION['role'] !== '1'):?>
                           <th>Aksi</th>
+                          <?php endif;?>
                         </tr>
                       </thead>
                       <?php $no = 1?>
@@ -52,9 +54,11 @@
                           <td><?=$pesanan['id_supplier']?></td>
                           <td><?= $pesanan['jumlah']?></td>
                           <td><div class="badge <?=$badge?>"><?= $pesanan['status']?></div></td>
+                          <?php if($_SESSION['role'] !== '1'):?>
                           <td>
                             <button <?= $isDisable?> data-target="#hapusModal<?=$pesanan['id_barang_masuk']?>" data-toggle="modal" class="btn btn-primary <?= $isDisable?>">Keluar</button>
                           </td>
+                          <?php endif;?>
                         </tr>
                       </tbody> 
                       <?php endforeach?> 

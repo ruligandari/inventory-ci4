@@ -19,7 +19,9 @@
                 <div class="card-header">
                   <h4>Barang Pesanan</h4>
                   <div class="card-header-action">
-                      <a href="<?= base_url('pegawai/pesan-barang/create')?>" class="btn btn-primary">Tambah Pesanan</a>        
+                    <?php if($_SESSION['role'] !== '1'): ?>
+                      <a href="<?= base_url('pegawai/pesan-barang/create') ?>" class="btn btn-primary">Tambah Pesanan</a>
+                  <?php endif;?> 
                   </div>
                 </div>
                 <div class="card-body">
@@ -33,7 +35,9 @@
                           <th>Supplier</th>
                           <th>Jumlah</th>
                           <th>Status</th>
+                          <?php if($_SESSION['role'] !== '1'):?>
                           <th>Aksi</th>
+                          <?php endif;?>
                         </tr>
                       </thead>
                       <?php $no = 1?>
@@ -73,10 +77,12 @@
                           <td><?=$pesanan['id_supplier']?></td>
                           <td><?= $pesanan['jumlah']?></td>
                           <td><div class="badge <?=$badge?>"><?= $pesanan['status']?></div></td>
+                          <?php if($_SESSION['role'] !== '1'):?>
                           <td>
                             <button <?=$isHide?> data-target="#hapusModal<?=$pesanan['id_barang_pesanan']?>" data-toggle="modal" class="btn btn-danger <?=$isHide?>">Hapus</button>
                             <button <?=$isHide?> data-target="#terimaModal<?=$pesanan['id_barang_pesanan']?>" data-toggle="modal" class="btn btn-success <?=$isHide?>">Terima Barang</button>
                           </td>
+                          <?php endif;?>
                         </tr>
                       </tbody> 
                       <?php endforeach?> 

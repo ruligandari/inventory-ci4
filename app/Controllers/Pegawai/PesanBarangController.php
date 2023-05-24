@@ -6,6 +6,7 @@ use App\Controllers\BaseController;
 use App\Models\BarangModel;
 use App\Models\BarangPesanan;
 use App\Models\BarangMasuk;
+use App\Models\KategoriModel;
 use App\Models\SupplierModel;
 
 class PesanBarangController extends BaseController
@@ -13,6 +14,7 @@ class PesanBarangController extends BaseController
     public function index()
     {
         $barangpesanan = new BarangPesanan();
+        
         
         $getAllData = $barangpesanan->getAllData();
         $data = [
@@ -34,12 +36,14 @@ class PesanBarangController extends BaseController
     {
         $supplier = new SupplierModel();
         $barangModel = new BarangModel();
+        $kategori = new KategoriModel();
         $getBarangData =$barangModel->findAll();
         $getAllData = $supplier->findAll();
         $data = [
             'title' => 'Pesan Barang',
             'dataSupplier' => $getAllData,
             'barangdata' => $getBarangData,
+            'kategori'=>$kategori->findAll(),
         ];
         return view('pages/pegawai/pesan-barang-create', $data);
     }
