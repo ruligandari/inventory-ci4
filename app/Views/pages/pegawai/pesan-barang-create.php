@@ -39,19 +39,6 @@
                             </select>
                         </div>
                         <div class="form-group">
-                        <label>Kategori Barang</label>
-                        <select name="kategori" class="form-control">
-                          <option value="Pilih Kategori">Pilih Kategori</option>
-                          <?php foreach($kategori as $row):?>
-                            <option value="<?= $row['nama_kategori'] ?>"><?= $row['nama_kategori'] ?></option>
-                          <?php endforeach?>
-                        </select>
-                        <input type="hidden" name="nama_barang" id="nama_barang">
-                        <div class="invalid-feedback">
-                            Masukan Nama yang Valid
-                        </div>
-                        </div>
-                        <div class="form-group">
                         <label>Nama Barang</label>
                         <select name="id_barang" id="id_barang" class="form-control">
                           <option value="Pilih Nama Barang">Pilih Nama Barang</option>
@@ -74,6 +61,13 @@
                         <div class="form-group">
                         <label>Harga</label>
                         <input type="text" name="harga" id="cost" class="form-control">
+                        <div class="invalid-feedback">
+                            Masukan Email yang Valid
+                        </div>                
+                        </div>
+                        <div class="form-group">
+                        <label>Total</label>
+                        <input type="text" name="total" id="totalcost" class="form-control">
                         <br>
                         <p id="minorder"></p>
                         <p id="biayapembelian"></p>
@@ -166,7 +160,8 @@ function formatNumber(input) {
                         console.log("Biaya pemesanan per unit barang: " + orderCostPerUnit);
                         console.log("Total biaya untuk periode ini dan berikutnya: " + totalCost);
                         $('#total_stok').val(minOrder);
-                        $('#cost').val('Rp. '+(minOrder*unitCost).toLocaleString());
+                        $('#totalcost').val((minOrder*unitCost));
+                        $('#cost').val((unitCost));
                         $('#nama_barang').val(namabarang);
                         let minorder = document.getElementById("minorder");
                         minorder.textContent = "Jumlah stok yang harus dibeli: " + minOrder;

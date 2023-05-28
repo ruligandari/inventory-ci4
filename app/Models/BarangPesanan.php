@@ -84,5 +84,11 @@ class BarangPesanan extends Model
         $builder->where('id_barang_pesanan', $id);
         $builder->update();
     }
+    public function konfirmasiId($id){
+        $builder = $this->db->table('barang_pesanan');
+        $builder->set('status','Dipesan');
+        $builder->where('id_barang_pesanan', $id);
+        $builder->update();
+    }
 
 }

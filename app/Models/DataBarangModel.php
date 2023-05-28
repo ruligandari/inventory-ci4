@@ -55,6 +55,13 @@ class DataBarangModel extends Model
         $query = $builder->get();
         return $query->getRowArray();
     }
+    public function getData($id_barang){
+        $builder = $this->db->table('barang');
+        $builder->select('*');
+        $builder->where('id_barang', $id_barang);
+        $query = $builder->get();
+        return $query->getResultArray();
+    }
     public function generateID(){
         $builder = $this->db->table('barang');
         $builder->selectMax('id_barang');
@@ -71,5 +78,11 @@ class DataBarangModel extends Model
             $newID = 'BR-'.$newNumber;
         }
         return $newID;
+    }
+    public function updateStok($id,$stok){
+        $builder = $this->db->table('barang');
+        $builder->set('stok', $stok);
+        $builder->where('id_barang', $id);
+        $builder->update();
     }
 }

@@ -42,6 +42,7 @@ $routes->post('/login/supplier/auth', 'Admin\AuthSupplierController::auth');
 $routes->get('/logout/supplier', 'Admin\AuthSupplierController::logout');
 
 $routes->get('getDataId','Pegawai\PesanBarangController::getDataBarangById');
+$routes->get('getDataBarang','Pegawai\DataBarangController::getDataBarang');
 
 // Routes Pegawai
 $routes->group('pegawai', ['filter' => 'AuthFilter'], static function ($routes){
@@ -66,7 +67,12 @@ $routes->group('pegawai', ['filter' => 'AuthFilter'], static function ($routes){
 
     //Data Barang
     $routes->get('daftar-barang','pegawai\DataBarangController::index');
+    $routes->get('daftar-barang/create', 'pegawai\DataBarangController::create');
+    $routes->post('daftar-barang/save', 'pegawai\DataBarangController::save');
     $routes->post('daftar-barang/importbyexcel','pegawai\DataBarangController::importbyexcel');
+    $routes->get('daftar-barang/edit/(:any)', 'pegawai\DataBarangController::edit/$1');
+    $routes->post('daftar-barang/delete/(:any)','pegawai\DataBarangController::delete/$1');
+    $routes->post('daftar-barang/update/(:any)', 'pegawai\DataBarangController::update/$1');
 
     //Transaksi
     $routes->get('transaksi','pegawai\TransaksiController::index');
@@ -76,6 +82,7 @@ $routes->group('pegawai', ['filter' => 'AuthFilter'], static function ($routes){
     $routes->get('pesan-barang/create', 'Pegawai\PesanBarangController::create');
     $routes->post('pesan-barang/save', 'Pegawai\PesanBarangController::save');
     $routes->post('pesan-barang/update/(:any)', 'Pegawai\PesanBarangController::update/$1');
+    $routes->post('pesan-barang/konfirmasi/(:any)','Pegawai\PesanBarangController::konfirmasi/$1');
     
     $routes->get('barang-masuk', 'Pegawai\BarangMasukController::index');
     $routes->post('barang-masuk/save', 'Pegawai\BarangMasukController::save');
@@ -86,10 +93,11 @@ $routes->group('pegawai', ['filter' => 'AuthFilter'], static function ($routes){
 
     $routes->get('laporan-masuk', 'Pegawai\LaporanMasukController::index');
     $routes->post('laporan-masuk/create', 'Pegawai\LaporanMasukController::create');
-    $routes->post('laporan-masuk/download','Pegawai\LaporanMasukController::download');
+    $routes->post('laporan-masuk/unduh','Pegawai\LaporanMasukController::unduh');
 
     $routes->get('laporan-keluar', 'Pegawai\LaporanKeluarController::index');
     $routes->post('laporan-keluar/create', 'Pegawai\LaporanKeluarController::create');
+    $routes->post('laporan-keluar/unduh','Pegawai\LaporanKeluarController::unduh');
 });
 // Routes Supplier
 $routes->group('supplier', ['filter' => 'AuthSupplierFilter'], static function ($routes){

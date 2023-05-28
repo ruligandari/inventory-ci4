@@ -107,7 +107,7 @@
                 <div class="modal-body">
                     <div class="form-group">
                         <label>Nama Barang</label>
-                        <select name="id_barang" class="form-control">
+                        <select name="id_barang" class="form-control" id="id_barang">
                             <option value="#">Silahkan Pilih</option>
                             <?php foreach ($barang as $br):?>
                                 <option value="<?=$br['id_barang']?>"><?=$br['nama_barang']?></option>

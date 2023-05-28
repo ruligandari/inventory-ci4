@@ -4,7 +4,7 @@
 <div class="main-content">
     <section class="section">
         <div class="section-header">
-            <h1>Pesan Barang</h1>
+            <h1>Data Barang</h1>
         </div>
         <div class="row">
             <div class="col-lg-12 col-md-12 col-12 col-sm-12">
@@ -33,6 +33,7 @@
                                         <th>No</th>
                                         <th>Nama Barang</th>
                                         <th>Supplier</th>
+                                        <th>Stok</th>
                                         <th>Harga</th>
                                         <th>Aksi</th>
                                     </tr>
@@ -44,7 +45,8 @@
                                         <td><?= $no++ ?></td>
                                         <td><?=$pesanan['nama_barang']?></td>
                                         <td><?=$pesanan['id_supplier']?></td>
-                                        <td><?= $pesanan['harga']?></td>
+                                        <td><?=$pesanan['harga']?></td>
+                                        <td><?=$pesanan['stok']?></td>
                                         <td>
                                             <a href="<?= base_url('pegawai/data-barang/edit/').$pesanan['id_barang']?>"
                                                 class="btn btn-primary">Edit</a>
@@ -77,10 +79,10 @@
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
-            <form action="<?= base_url('pegawai/users/delete/').$pesanan['id_barang']?>" method="POST">
+            <form action="<?= base_url('pegawai/daftar-barang/delete/').$pesanan['id_barang']?>" method="POST">
                 <?= csrf_field()?>
                 <div class="modal-body">
-                    Apakah anda yakin ingin menghapus pesanan <?=$pesanan['nama_barang']?> ?
+                    Apakah anda yakin ingin menghapus data barang <?=$pesanan['nama_barang']?> ?
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>

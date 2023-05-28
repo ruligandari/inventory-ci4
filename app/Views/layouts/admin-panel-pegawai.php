@@ -89,14 +89,11 @@ use Config\Services;
               <li class="nav-item <?= (service('uri')->getSegment(2) === 'supplier') ? 'active' : ''?>">
                 <a href="<?= base_url('pegawai/supplier')?>" class="nav-link" ><i class="fas fa-print"></i> <span>Data Supplier</span></a>
               </li>
-<<<<<<< HEAD
               <li class="menu-header">Transaksi</li>
               <li class="nav-item <?= (service('uri')->getSegment(2) === 'transaksi') ? 'active' : ''?>">
-                <a href="<?= base_url('pegawai/supplier')?>" class="nav-link" ><i class="fas fa-print"></i> <span>Data Supplier</span></a>
+                <a href="<?= base_url('pegawai/transaksi')?>" class="nav-link" ><i class="fas fa-print"></i> <span>Data Transaksi</span></a>
               </li>
-=======
               <?php endif;?>
->>>>>>> 699c85e524d07a2597fb5ce17ad1bf04708f09cd
               <?php if ($_SESSION['role'] !== '1'):?>
               <li class="menu-header">User</li>
               <li class="nav-item <?= (service('uri')->getSegment(2) === 'users') ? 'active' : ''?>">

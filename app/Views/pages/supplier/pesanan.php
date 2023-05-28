@@ -36,7 +36,10 @@
                       <?php $no = 1?>
                       <?php foreach ($pesanan as $pesan): ?>
                         <?php 
-                            if ($pesan['status'] == 'Dipesan') {
+                            if($pesan['status'] == 'Menunggu Konfirmasi'){
+                              $badge = "badge-secondary";
+                              $isHide = 'disabled';
+                            } else if ($pesan['status'] == 'Dipesan') {
                                 $badge = "badge-warning";
                                 $isHide = '';
                             } else if ($pesan['status'] == 'Dikirim') {

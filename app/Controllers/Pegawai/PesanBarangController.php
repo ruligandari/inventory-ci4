@@ -6,6 +6,7 @@ use App\Controllers\BaseController;
 use App\Models\BarangModel;
 use App\Models\BarangPesanan;
 use App\Models\BarangMasuk;
+use App\Models\DataBarangModel;
 use App\Models\KategoriModel;
 use App\Models\SupplierModel;
 
@@ -36,14 +37,12 @@ class PesanBarangController extends BaseController
     {
         $supplier = new SupplierModel();
         $barangModel = new BarangModel();
-        $kategori = new KategoriModel();
         $getBarangData =$barangModel->findAll();
         $getAllData = $supplier->findAll();
         $data = [
             'title' => 'Pesan Barang',
             'dataSupplier' => $getAllData,
             'barangdata' => $getBarangData,
-            'kategori'=>$kategori->findAll(),
         ];
         return view('pages/pegawai/pesan-barang-create', $data);
     }
@@ -54,17 +53,18 @@ class PesanBarangController extends BaseController
         $tanggal_pesan = $this->request->getVar('tanggal_pesan');
         $id_supplier = $this->request->getVar('id_supplier');
         $id_barang = $this->request->getVar('id_barang');
+        $total = $this->request->getVar('total');
         $jumlah = $this->request->getVar('jumlah');
-        $status = 'Dipesan';
+        $status = 'Menunggu Konfirmasi';
 
         $data = [
             'tanggal_pesan' => $tanggal_pesan,
             'id_supplier' => $id_supplier,
             'id_barang' => $id_barang,
             'jumlah' => $jumlah,
+            'total' => $total,
             'status' => $status,
         ];
-
         $query = $barangpesanan->insert($data);
 
         if ($query) {
@@ -91,6 +91,10 @@ class PesanBarangController extends BaseController
             'jumlah' => $datas[0]['jumlah'],
             'status' => 'Masuk',
         ];
+        $barangModel = new DataBarangModel();
+        $stokSementara = $barangModel->find('stok');
+        $stokAkhir = $stokSementara+$data['jumlah'];
+        $barangModel->updateStok($data['id_barang'],$stokAkhir);
         $barangmasuk = new BarangMasuk();
         $query = $barangmasuk->insert($data);
 
@@ -101,5 +105,11 @@ class PesanBarangController extends BaseController
             session()->setFlashdata('error', 'Data pesanan gagal diubah');
             return redirect()->to(base_url('pegawai/pesan-barang'));
         }
+    }
+    public function konfirmasi($id){
+        $pesananModel = new BarangPesanan();
+        $pesananModel->konfirmasiId($id);
+        session()->setFlashdata('success','Data Pesanan Berhasil di konfirmasi');
+        return redirect()->to(base_url('pegawai/pesan-barang'));
     }
 }

@@ -5,6 +5,7 @@ namespace App\Controllers\Pegawai;
 use App\Controllers\BaseController;
 use App\Models\DataBarangModel;
 use App\Helpers\ExcelHelper;
+use App\Models\SupplierModel;
 
 class DataBarangController extends BaseController
 {
@@ -18,11 +19,23 @@ class DataBarangController extends BaseController
         ];
         return view('pages/pegawai/data-barang', $data);
     }
+    public function getDataBarang(){
+        $id_barang = $this->request->getVar('id_barang');
+        $barangModel = new DataBarangModel();
+        $getData = $barangModel->find($id_barang);
+        $data = [
+            'harga' => $getData['harga'],
+            'stok' => $getData['stok']
+        ];
+        return $this->response->setJSON($data);
+    }
 
     public function create()
     {
+        $supplierModel = new SupplierModel();
         $data = [
             'title' => 'Tambah Data Barang',
+            'supplier' => $supplierModel->findAll()
         ];
         return view('pages/pegawai/data-barang-create', $data);
     }
@@ -67,38 +80,40 @@ class DataBarangController extends BaseController
 
     public function save()
     {
-        $nama = $this->request->getVar('nama');
-        $email = $this->request->getVar('email');
-        $password = $this->request->getVar('password');
-        $role = $this->request->getVar('role');
+        $nama = $this->request->getVar('nama_barang');
+        $id_supplier = $this->request->getVar('id_supplier');
+        $stok = $this->request->getVar('stok');
+        $harga = $this->request->getVar('harga');
 
-        $users = new UsersModel();
+        $barangModel = new DataBarangModel();
+        $idBarang = $barangModel->generateID();
         $data = [
-            'nama' => $nama,
-            'email' => $email,
-            'password' => password_hash($password, PASSWORD_DEFAULT),
-            'role' => $role,
+            'id_barang' => $idBarang,
+            'nama_barang' => $nama,
+            'id_supplier' => $id_supplier,
+            'stok' => $stok,
+            'harga' => $harga
         ];
         if ($data){
-            $users->insert($data);
+            $barangModel->insert($data);
             session()->setFlashdata('success', 'Data berhasil ditambahkan');
-            return redirect()->to(base_url('pegawai/users'));
+            return redirect()->to(base_url('pegawai/daftar-barang'));
         } else {
             session()->setFlashdata('error', 'Data gagal ditambahkan');
-            return redirect()->to(base_url('pegawai/users/create'));
+            return redirect()->to(base_url('pegawai/daftar-barang/create'));
         }
     }
 
     public function edit($id)
     {
-        $usersModel = new UsersModel();
-        $user = $usersModel->find($id);
+        $barangModel = new DataBarangModel();
+        $user = $barangModel->find($id);
 
         $data = [
-            'title' => 'Edit Data Users',
-            'user' => $user,
+            'title' => 'Edit Data Barang',
+            'barang' => $user,
         ];
-        return view('pages/pegawai/users-edit', $data);
+        return view('pages/pegawai/data-barang-edit', $data);
     }
 
     public function update($id)
@@ -125,9 +140,9 @@ class DataBarangController extends BaseController
 
     public function delete($id)
     {
-        $users = new UsersModel();
-        $users->delete($id);
+        $barang = new DataBarangModel();
+        $barang->delete($id);
         session()->setFlashdata('success', 'Data berhasil dihapus');
-        return redirect()->to(base_url('pegawai/users'));
+        return redirect()->to(base_url('pegawai/daftar-barang'));
     }
 }
