@@ -31,33 +31,34 @@ class LaporanMasukController extends BaseController
         return view('layouts/print', $data);
         
         }
-        public function unduh()
-        {
-            $tanggal = $this->request->getVar('month');
-            $barang = new BarangMasuk();
-            $laporanMasuk = $barang->getDataByDate($tanggal);
-            $data = [
-                'title' => 'Laporan Barang Keluar',
-                'laporanBarang' => $laporanMasuk,
-            ];
-        
-            // Load view into a variable
-            $html = view('layouts/print', $data);
-        
-            // Instantiate Dompdf
-            $dompdf = new Dompdf();
-            $dompdf->loadHtml($html);
-        
-            // (Optional) Setup the paper size and orientation
-            $dompdf->setPaper('A4', 'portrait');
-        
-            // Render the HTML as PDF
-            $dompdf->render();
-        
-            // Generate file name
-            $filename = 'laporan_barang_masuk_' . date('Ymd') . '.pdf';
-        
-            // Force download the PDF file
-            $dompdf->stream($filename, ['Attachment' => true]);
-        }
+public function unduh()
+{
+    $tanggal = $this->request->getVar('month');
+    $barang = new BarangMasuk();
+    $laporanMasuk = $barang->getDataByDate($tanggal);
+    $data = [
+        'title' => 'Laporan Barang Keluar',
+        'laporanBarang' => $laporanMasuk,
+    ];
+
+    // Load view into a variable
+    $html = view('layouts/print-keluar', $data);
+
+    // Instantiate Dompdf
+    $dompdf = new Dompdf();
+    $dompdf->loadHtml($html);
+
+    // Set paper size and orientation
+    $dompdf->setPaper('A4', 'landscape');
+
+    // Render the HTML as PDF
+    $dompdf->render();
+
+    // Generate file name
+    $filename = 'laporan_barang_keluar_' . date('Ymd') . '.pdf';
+
+    // Force download the PDF file
+    $dompdf->stream($filename, ['Attachment' => true]);
+}
+
 }
