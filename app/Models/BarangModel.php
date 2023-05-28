@@ -44,6 +44,7 @@ class BarangModel extends Model
         $builder = $this->db->table('barang');
         $builder->select('*');
         $builder->join('barang_keluar', 'barang.id_barang = barang_keluar.id_barang');
+        $builder->join('kategori','barang.id_kategori = kategori.id_kategori');
         $builder->where('barang.id_barang', $id_barang);
         $query = $builder->get();
         return $query->getResultArray();

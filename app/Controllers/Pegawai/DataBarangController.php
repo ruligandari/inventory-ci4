@@ -12,7 +12,7 @@ class DataBarangController extends BaseController
     public function index()
     {
         $barangModel = new DataBarangModel();
-        $barang = $barangModel->findAll();
+        $barang = $barangModel->join('kategori', 'kategori.id_kategori = barang.id_kategori')->findAll();
         $data = [
             'title' => 'Users - Pegawai',
             'barang' => $barang

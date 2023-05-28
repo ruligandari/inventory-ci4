@@ -8,13 +8,16 @@ class KategoriModel extends Model
 {
     protected $DBGroup          = 'default';
     protected $table            = 'kategori';
-    protected $primaryKey       = 'id';
+    protected $primaryKey       = 'id_kategori';
     protected $useAutoIncrement = true;
     protected $insertID         = 0;
     protected $returnType       = 'array';
     protected $useSoftDeletes   = false;
     protected $protectFields    = true;
-    protected $allowedFields    = [];
+    protected $allowedFields    = [
+        'id_kategori',
+        'nama_kategori'
+    ];
 
     // Dates
     protected $useTimestamps = false;

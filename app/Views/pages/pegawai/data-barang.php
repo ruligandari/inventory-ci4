@@ -34,6 +34,7 @@
                                         <th>Nama Barang</th>
                                         <th>Supplier</th>
                                         <th>Stok</th>
+                                        <th>Kategori</th>
                                         <th>Harga</th>
                                         <th>Aksi</th>
                                     </tr>
@@ -45,8 +46,9 @@
                                         <td><?= $no++ ?></td>
                                         <td><?=$pesanan['nama_barang']?></td>
                                         <td><?=$pesanan['id_supplier']?></td>
-                                        <td><?=$pesanan['harga']?></td>
                                         <td><?=$pesanan['stok']?></td>
+                                        <td><?=$pesanan['nama_kategori']?></td>
+                                        <td><?=$pesanan['harga']?></td>
                                         <td>
                                             <a href="<?= base_url('pegawai/data-barang/edit/').$pesanan['id_barang']?>"
                                                 class="btn btn-primary">Edit</a>
@@ -102,7 +104,8 @@
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
-            <form action="<?= base_url('pegawai/daftar-barang/importbyexcel')?>" method="POST" enctype="multipart/form-data">
+            <form action="<?= base_url('pegawai/daftar-barang/importbyexcel')?>" method="POST"
+                enctype="multipart/form-data">
                 <?= csrf_field()?>
                 <div class="modal-body">
                     <input type="file" name="excel_file">

@@ -58,6 +58,7 @@ class DataBarangModel extends Model
     public function getData($id_barang){
         $builder = $this->db->table('barang');
         $builder->select('*');
+        $builder->join('kategori', 'barang.id_kategori = kategori.id_kategori');
         $builder->where('id_barang', $id_barang);
         $query = $builder->get();
         return $query->getResultArray();
@@ -84,5 +85,12 @@ class DataBarangModel extends Model
         $builder->set('stok', $stok);
         $builder->where('id_barang', $id);
         $builder->update();
+    }
+    public function getStok($id){
+        $builder = $this->db->table('barang');
+        $builder->select('stok');
+        $builder->where('id_barang', $id);
+        $query = $builder->get();
+        return $query->getResultArray();
     }
 }

@@ -34,6 +34,7 @@
                                     <div class="form-group">
                                         <label>Supplier</label>
                                         <select name="id_supplier" class="form-control" id="">
+                                            <option value="#">Pilih Supplier</option>
                                             <?php foreach($dataSupplier as $supplier):?>
                                             <option value="<?= $supplier['id_supplier'] ?>"><?=$supplier['nama'] ?>
                                             </option>
@@ -56,21 +57,28 @@
                                     </div>
                                     <div class="form-group">
                                         <label>Jumlah</label>
-                                        <input type="text" name="jumlah" id="total_stok" class="form-control">
+                                        <input type="text" name="jumlah" id="total_stok" readonly class="form-control">
                                         <div class="invalid-feedback">
                                             Masukan Email yang Valid
                                         </div>
                                     </div>
                                     <div class="form-group">
                                         <label>Harga</label>
-                                        <input type="text" name="harga" id="cost" class="form-control">
+                                        <input type="text" name="harga" id="cost" readonly class="form-control">
+                                        <div class="invalid-feedback">
+                                            Masukan Email yang Valid
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label>Kategori</label>
+                                        <input type="text" name="kategori" readonly id="kategori" class="form-control">
                                         <div class="invalid-feedback">
                                             Masukan Email yang Valid
                                         </div>
                                     </div>
                                     <div class="form-group">
                                         <label>Total</label>
-                                        <input type="text" name="total" id="totalcost" class="form-control">
+                                        <input type="text" name="total" readonly id="totalcost" class="form-control">
                                         <br>
                                         <p id="minorder"></p>
                                         <p id="biayapembelian"></p>
@@ -148,6 +156,7 @@ $(document).ready(function() {
                         total_stok += parseInt(response[i].jumlah);
                         harga = parseInt(response[i].harga);
                         namabarang = response[i].nama_barang;
+                        kategori = response[i].nama_kategori;
                     }
                 }
 
@@ -175,6 +184,7 @@ $(document).ready(function() {
                 $('#totalcost').val((minOrder * unitCost));
                 $('#cost').val((unitCost));
                 $('#nama_barang').val(namabarang);
+                $('#kategori').val(kategori);
                 let minorder = document.getElementById("minorder");
                 minorder.textContent = "Jumlah stok yang harus dibeli: " + minOrder;
 

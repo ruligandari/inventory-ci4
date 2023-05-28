@@ -92,8 +92,9 @@ class PesanBarangController extends BaseController
             'status' => 'Masuk',
         ];
         $barangModel = new DataBarangModel();
-        $stokSementara = $barangModel->find('stok');
-        $stokAkhir = $stokSementara+$data['jumlah'];
+        $stokSementara = $barangModel->getDataBarangById($data['id_barang']);
+        $stokSebelumnya = $stokSementara['stok'];
+        $stokAkhir = $stokSebelumnya + $data['jumlah'];
         $barangModel->updateStok($data['id_barang'],$stokAkhir);
         $barangmasuk = new BarangMasuk();
         $query = $barangmasuk->insert($data);
