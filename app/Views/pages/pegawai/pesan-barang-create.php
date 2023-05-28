@@ -202,8 +202,9 @@ $(document).ready(function() {
 
                 let perkiraan_bulan = document.getElementById("remaining_months");
                 perkiraan_bulan.textContent =
-                    "Perkiraan persediaan akan bertahan selama: " + remaining_months +
-                    " bulan";
+                    "Sehingga ongkos total untuk Periode ini adalah : Rp. " + totalCost
+                    .toLocaleString() +
+                    " Dengan waktu periode optimal " + remaining_months + " bulan";
             }
         });
     });
