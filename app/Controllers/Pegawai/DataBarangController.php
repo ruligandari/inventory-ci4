@@ -5,6 +5,7 @@ namespace App\Controllers\Pegawai;
 use App\Controllers\BaseController;
 use App\Models\DataBarangModel;
 use App\Helpers\ExcelHelper;
+use App\Models\KategoriModel;
 use App\Models\SupplierModel;
 
 class DataBarangController extends BaseController
@@ -14,7 +15,7 @@ class DataBarangController extends BaseController
         $barangModel = new DataBarangModel();
         $barang = $barangModel->join('kategori', 'kategori.id_kategori = barang.id_kategori')->findAll();
         $data = [
-            'title' => 'Users - Pegawai',
+            'title' => 'Data Barang - Pegawai',
             'barang' => $barang
         ];
         return view('pages/pegawai/data-barang', $data);
@@ -33,9 +34,11 @@ class DataBarangController extends BaseController
     public function create()
     {
         $supplierModel = new SupplierModel();
+        $kategoriModel = new KategoriModel();
         $data = [
             'title' => 'Tambah Data Barang',
-            'supplier' => $supplierModel->findAll()
+            'supplier' => $supplierModel->findAll(),
+            'kategori' => $kategoriModel->findAll()
         ];
         return view('pages/pegawai/data-barang-create', $data);
     }
@@ -63,7 +66,9 @@ class DataBarangController extends BaseController
                     'id_barang' => $idBarang,
                     'nama_barang' => $row[0],
                     'id_supplier' => $row[1],
-                    'harga' => $row[2]
+                    'id_kategori' => $row['2'],
+                    'harga' => $row[3],
+                    'stok' => $row[4]
                 ]);
             }
 
@@ -82,15 +87,16 @@ class DataBarangController extends BaseController
     {
         $nama = $this->request->getVar('nama_barang');
         $id_supplier = $this->request->getVar('id_supplier');
+        $id_kategori = $this->request->getVar('id_kategori');
         $stok = $this->request->getVar('stok');
         $harga = $this->request->getVar('harga');
-
         $barangModel = new DataBarangModel();
         $idBarang = $barangModel->generateID();
         $data = [
             'id_barang' => $idBarang,
             'nama_barang' => $nama,
             'id_supplier' => $id_supplier,
+            'id_kategori' => $id_kategori,
             'stok' => $stok,
             'harga' => $harga
         ];
@@ -107,34 +113,40 @@ class DataBarangController extends BaseController
     public function edit($id)
     {
         $barangModel = new DataBarangModel();
-        $user = $barangModel->find($id);
-
+        $user = $barangModel->join('supplier','supplier.id_supplier = barang.id_supplier')->join('kategori','kategori.id_kategori = barang.id_kategori')->find($id);
+        $supplier = new SupplierModel();
+        $kategori = new KategoriModel();
         $data = [
             'title' => 'Edit Data Barang',
             'barang' => $user,
+            'supplier' => $supplier->findAll(),
+            'kategori' => $kategori->findAll()
         ];
         return view('pages/pegawai/data-barang-edit', $data);
     }
 
     public function update($id)
     {
-        $nama = $this->request->getVar('nama');
-        $email = $this->request->getVar('email');
-        $password = $this->request->getVar('password');
-
-        $users = new UsersModel();
+        $nama = $this->request->getVar('nama_barang');
+        $id_supplier = $this->request->getVar('id_supplier');
+        $stok = $this->request->getVar('stok');
+        $harga = $this->request->getVar('harga');
+        $id_kategori = $this->request->getVar('id_kategori');
+        $barangModel = new DataBarangModel();
         $data = [
-            'nama' => $nama,
-            'email' => $email,
-            'password' => password_hash($password, PASSWORD_DEFAULT),
+            'nama_barang' => $nama,
+            'id_supplier' => $id_supplier,
+            'id_kategori' => $id_kategori,
+            'stok' => $stok,
+            'harga' => $harga,
         ];
         if ($data){
-            $users->update($id, $data);
+            $barangModel->update($id, $data);
             session()->setFlashdata('success', 'Data berhasil diubah');
-            return redirect()->to(base_url('pegawai/users'));
+            return redirect()->to(base_url('pegawai/daftar-barang'));
         } else {
             session()->setFlashdata('error', 'Data gagal diubah');
-            return redirect()->to(base_url('pegawai/users/edit/'.$id));
+            return redirect()->to(base_url('pegawai/daftar-barang/edit/'.$id));
         }
     }
 

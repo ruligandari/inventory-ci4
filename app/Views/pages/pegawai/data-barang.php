@@ -50,7 +50,7 @@
                                         <td><?=$pesanan['nama_kategori']?></td>
                                         <td><?=$pesanan['harga']?></td>
                                         <td>
-                                            <a href="<?= base_url('pegawai/data-barang/edit/').$pesanan['id_barang']?>"
+                                            <a href="<?= base_url('pegawai/daftar-barang/edit/').$pesanan['id_barang']?>"
                                                 class="btn btn-primary">Edit</a>
                                             <button data-target="#hapusModal<?=$pesanan['id_barang']?>"
                                                 data-toggle="modal" class="btn btn-danger">Hapus</button>

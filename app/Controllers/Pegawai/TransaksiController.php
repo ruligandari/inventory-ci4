@@ -4,7 +4,6 @@ namespace App\Controllers\Pegawai;
 
 use App\Controllers\BaseController;
 use App\Models\BarangKeluar;
-use App\Models\BarangMasuk;
 use App\Models\DataBarangModel;
 use App\Models\TransaksiModel;
 
@@ -23,7 +22,6 @@ class TransaksiController extends BaseController
     }
     public function save(){
         $transaksiModel = new TransaksiModel();
-        $barangMasukModel = new BarangMasuk();
         $barangKeluarModel = new BarangKeluar();
         $barangModel = new DataBarangModel();
         $id_barang = $this->request->getVar('id_barang');

@@ -17,16 +17,18 @@
                 }
                 ?>
                     <div class="card-header">
-                        <h4>Tambah Data Barang</h4>
+                        <h4>Update Data Barang</h4>
                     </div>
                     <div class="card-body">
-                        <form action="<?= base_url('pegawai/daftar-barang/save')?>" method="POST">
+                        <form action="<?= base_url('pegawai/daftar-barang/update/').$barang['id_barang']?>"
+                            method="POST">
                             <?= csrf_field()?>
                             <div class="row">
                                 <div class="col-6">
                                     <div class="form-group">
                                         <label>Nama Barang</label>
-                                        <input type="text" name="nama_barang" class="form-control" required="">
+                                        <input type="text" name="nama_barang" class="form-control" required=""
+                                            value="<?=$barang['nama_barang']?>">
                                         <div class="invalid-feedback">
                                             Masukan Nama Barang yang Valid
                                         </div>
@@ -34,7 +36,7 @@
                                     <div class="form-group">
                                         <label>Nama Supplier</label>
                                         <select name="id_supplier" class="form-control">
-                                            <option value="#">Silahkan Pilih</option>
+                                            <option value="<?=$barang['id_supplier']?>"><?=$barang['nama']?></option>
                                             <?php foreach($supplier as $sp ):?>
                                             <option value="<?=$sp['id_supplier']?>"><?=$sp['nama']?></option>
                                             <?php endforeach?>
@@ -46,27 +48,30 @@
                                     <div class="form-group">
                                         <label>Nama Kategori</label>
                                         <select name="id_kategori" class="form-control">
-                                            <option value="#">Silahkan Pilih</option>
-                                            <?php foreach($kategori as $kt ):?>
-                                            <option value="<?=$kt['id_kategori']?>"><?=$kt['nama_kategori']?></option>
+                                            <option value="<?=$barang['id_kategori']?>"><?=$barang['nama_kategori']?>
+                                            </option>
+                                            <?php foreach($kategori as $sp ):?>
+                                            <option value="<?=$sp['id_kategori']?>"><?=$sp['nama_kategori']?></option>
                                             <?php endforeach?>
                                         </select>
                                         <div class="invalid-feedback">
-                                            Silahkan Pilih Nama Kategori
+                                            Silahkan Pilih Nama Supplier
                                         </div>
                                     </div>
                                 </div>
                                 <div class="col-lg-6">
                                     <div class="form-group">
                                         <label>Stok</label>
-                                        <input type="number" name="stok" class="form-control">
+                                        <input type="number" name="stok" class="form-control"
+                                            value="<?=$barang['stok']?>">
                                         <div class="invalid-feedback">
                                             Masukan Stok yang Valid
                                         </div>
                                     </div>
                                     <div class="form-group">
                                         <label>Harga</label>
-                                        <input type="number" name="harga" class="form-control">
+                                        <input type="number" name="harga" class="form-control"
+                                            value="<?=$barang['harga']?>">
                                         <div class="invalid-feedback">
                                             Masukan Harga yang Valid
                                         </div>
@@ -74,7 +79,7 @@
                                 </div>
                             </div>
                             <div class="card-footer text-right">
-                                <button class="btn btn-primary">Simpan</button>
+                                <button class="btn btn-primary">Update</button>
                             </div>
                         </form>
                     </div>

@@ -12,7 +12,7 @@ class LaporanKeluarController extends BaseController
         $barang = new BarangKeluar();
         $laporanKeluar = $barang->getAllDataBarangKeluar();
         $data = [
-            'title' => 'Laporan Masuk',
+            'title' => 'Laporan Keluar',
             'laporanBarang' => $laporanKeluar,
         ];
 
