@@ -52,4 +52,14 @@ class TransaksiController extends BaseController
         session()->setFlashdata('success', 'Data berhasil ditambahkan');
         return redirect()->to(base_url('pegawai/transaksi'));
         }
+        public function edit($id){
+            $transaksiModel = new TransaksiModel();
+            $barangModel = new DataBarangModel();
+            $data = [
+                'title' => 'Edit Data Transaksi',
+                'transaksi' => $transaksiModel->join('barang','barang.id_barang = transaksi.id_barang')->find($id),
+                'barang' => $barangModel->findAll()
+            ];
+            return view ('pages/pegawai/transaksi-edit',$data);
+        }
 }

@@ -18,8 +18,9 @@
                 <div class="card">
                     <div class="card-header">
                         <h4>Transaksi</h4>
-                    <div class="card-header-action">
-                            <button data-target="#tambahModal" data-toggle="modal" class="btn btn-success">Tambah Transaksi</button>
+                        <div class="card-header-action">
+                            <button data-target="#tambahModal" data-toggle="modal" class="btn btn-success">Tambah
+                                Transaksi</button>
                         </div>
                     </div>
                     <div class="card-body">
@@ -47,8 +48,6 @@
                                         <td><?=$pesanan['total']?></td>
                                         <td><?=$pesanan['tanggal']?></td>
                                         <td>
-                                            <a href="<?= base_url('pegawai/transaksi/edit/').$pesanan['id_transaksi']?>"
-                                                class="btn btn-primary">Edit</a>
                                             <button data-target="#hapusModal<?=$pesanan['id_transaksi']?>"
                                                 data-toggle="modal" class="btn btn-danger">Hapus</button>
                                         </td>
@@ -110,7 +109,7 @@
                         <select name="id_barang" class="form-control" id="id_barang">
                             <option value="#">Silahkan Pilih</option>
                             <?php foreach ($barang as $br):?>
-                                <option value="<?=$br['id_barang']?>"><?=$br['nama_barang']?></option>
+                            <option value="<?=$br['id_barang']?>"><?=$br['nama_barang']?></option>
                             <?php endforeach?>
                         </select>
                     </div>

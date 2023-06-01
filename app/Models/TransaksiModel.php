@@ -54,5 +54,14 @@ class TransaksiModel extends Model
 
         return $result;
     }
-}
+    public function getDataByDate($id)
+    {
+        $builder = $this->db->table('transaksi');
+        $builder->join('barang', 'barang.id_barang = transaksi.id_barang');
+        $builder->like('tanggal', $id);
+        $query = $builder->get();
+        $result = $query->getResultArray();
 
+        return $result;
+    }
+}

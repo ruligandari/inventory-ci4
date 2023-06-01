@@ -63,6 +63,15 @@ class DataBarangModel extends Model
         $query = $builder->get();
         return $query->getResultArray();
     }
+    public function getAllData()
+    {
+        $builder = $this->db->table('barang');
+        $builder->join('barang', 'barang.id_barang = barang_keluar.id_barang');
+        $query = $builder->get();
+        $result = $query->getResultArray();
+
+        return $result;
+    }
     public function generateID(){
         $builder = $this->db->table('barang');
         $builder->selectMax('id_barang');
@@ -91,6 +100,24 @@ class DataBarangModel extends Model
         $builder->select('stok');
         $builder->where('id_barang', $id);
         $query = $builder->get();
+        return $query->getResultArray();
+    }
+    public function getDataBarang($filter = 'month')
+    {
+        if ($filter === 'month') {
+            // Query untuk filter bulan ini
+            $query = $this->db->query("SELECT * FROM barang WHERE MONTH(tanggal_pesan) = MONTH(CURRENT_DATE())");
+        } elseif ($filter === 'week') {
+            // Query untuk filter minggu ini
+            $query = $this->db->query("SELECT * FROM barang WHERE YEARWEEK(tanggal_pesan) = YEARWEEK(CURRENT_DATE())");
+        } elseif ($filter === 'item') {
+            // Query untuk filter per barang
+            $query = $this->db->query("SELECT * FROM barang GROUP BY nama_barang");
+        } elseif ($filter === 'day') {
+            // Query untuk filter hari ini
+            $query = $this->db->query("SELECT * FROM barang WHERE DATE(tanggal_pesan) = CURDATE()");
+        }
+
         return $query->getResultArray();
     }
 }

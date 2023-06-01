@@ -48,8 +48,15 @@ $routes->get('getDataBarang','Pegawai\DataBarangController::getDataBarang');
 $routes->group('pegawai', ['filter' => 'AuthFilter'], static function ($routes){
     $routes->get('home', 'Pegawai\DashboardController::index');
     
+    //Chart Masuk
     $routes->get('home/get_data', 'Pegawai\DashboardController::get_data');
+    $routes->get('home/get_data_week','Pegawai\DashboardController::get_data_week');
+    $routes->get('home/get_data_hari','Pegawai\DashboardController::get_data_hari');
+
+    //Chart Keluar
     $routes->get('home/get_data_keluar', 'Pegawai\DashboardController::get_data_keluar');
+    $routes->get('home/get_data_week_keluar','Pegawai\DashboardController::get_data_week_keluar');
+    $routes->get('home/get_data_hari_keluar','Pegawai\DashboardController::get_data_hari_keluar');
 
     $routes->get('users', 'Pegawai\UsersController::index');
     $routes->get('users/create', 'Pegawai\UsersController::create');
@@ -77,6 +84,10 @@ $routes->group('pegawai', ['filter' => 'AuthFilter'], static function ($routes){
     //Transaksi
     $routes->get('transaksi','pegawai\TransaksiController::index');
     $routes->post('transaksi/save','pegawai\TransaksiController::save');
+    $routes->get('transaksi/edit/(:any)','pegawai\TransaksiController::edit/$1');
+    $routes->post('transaksi/update/(:any)','pegawai\TransaksiController::update/$1');
+    $routes->post('transaksi/delete/(:any)','pegawai\TransaksiController::delete/$1');
+    
     //Pesan Barang
     $routes->get('pesan-barang', 'Pegawai\PesanBarangController::index');
     $routes->get('pesan-barang/create', 'Pegawai\PesanBarangController::create');
@@ -98,6 +109,10 @@ $routes->group('pegawai', ['filter' => 'AuthFilter'], static function ($routes){
     $routes->get('laporan-keluar', 'Pegawai\LaporanKeluarController::index');
     $routes->post('laporan-keluar/create', 'Pegawai\LaporanKeluarController::create');
     $routes->post('laporan-keluar/unduh','Pegawai\LaporanKeluarController::unduh');
+
+    $routes->get('laporan-transaksi', 'Pegawai\LaporanTransaksiController::index');
+    $routes->post('laporan-transaksi/create', 'Pegawai\LaporanTransaksiController::create');
+    $routes->post('laporan-transaksi/unduh','Pegawai\LaporanTransaksiController::unduh');
 });
 // Routes Supplier
 $routes->group('supplier', ['filter' => 'AuthSupplierFilter'], static function ($routes){

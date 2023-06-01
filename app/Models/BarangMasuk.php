@@ -85,4 +85,22 @@ class BarangMasuk extends Model
 
         return $result;
     }
+    public function getDataByMonth($month){
+        $builder = $this->db->table('barang_masuk');
+        $builder->join('barang', 'barang.id_barang = barang_masuk.id_barang');
+        $builder->where('MONTH(tanggal_pesan)', $month);
+        $query = $builder->get();
+        $result = $query->getResultArray();
+
+        return $result;
+    }
+    public function getDataByDay($day){
+        $builder = $this->db->table('barang_masuk');
+        $builder->join('barang', 'barang.id_barang = barang_masuk.id_barang');
+        $builder->where('DATE(tanggal_pesan)', $day);
+        $query = $builder->get();
+        $result = $query->getResultArray();
+    
+        return $result;
+    }
 }
