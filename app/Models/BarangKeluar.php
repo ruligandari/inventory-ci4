@@ -77,6 +77,46 @@ class BarangKeluar extends Model
 
         return $result;
     }
+    public function getDataByYear($year)
+    {
+        $builder = $this->db->table('barang_keluar');
+        $builder->join('barang', 'barang.id_barang = barang_keluar.id_barang');
+        $builder->where('YEAR(tanggal_pesan)', $year);
+        $query = $builder->get();
+        $result = $query->getResultArray();
+
+        return $result;
+    }
+
+    public function getDataByLastThreeMonths()
+    {
+        $builder = $this->db->table('barang_keluar');
+        $builder->join('barang', 'barang.id_barang = barang_keluar.id_barang');
+
+        $currentYear = date('Y');
+        $currentMonth = date('m');
+
+        $builder->where('YEAR(tanggal_pesan)', $currentYear);
+
+        // Menentukan bulan awal dan akhir dari tiga bulan terakhir
+        $startMonth = $currentMonth - 2;
+        $endMonth = $currentMonth;
+
+        // Mengatur filter berdasarkan rentang bulan
+        if ($startMonth <= 0) {
+            $startMonth = 12 + $startMonth;
+            $builder->where('(MONTH(tanggal_pesan) >= ' . $startMonth . ' OR MONTH(tanggal_pesan) <= ' . $endMonth . ')');
+        } else {
+            $builder->where('MONTH(tanggal_pesan) BETWEEN ' . $startMonth . ' AND ' . $endMonth);
+        }
+
+        $builder->orderBy('tanggal_pesan', 'ASC');
+
+        $query = $builder->get();
+        $result = $query->getResultArray();
+
+        return $result;
+    }
     public function getDataByDay($day){
         $builder = $this->db->table('barang_keluar');
         $builder->join('barang', 'barang.id_barang = barang_keluar.id_barang');

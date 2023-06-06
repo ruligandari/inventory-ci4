@@ -39,16 +39,16 @@
                                         <th>Aksi</th>
                                     </tr>
                                 </thead>
-                                <?php $no = 1?>
-                                <?php foreach ($barang as $pesanan): ?>
                                 <tbody>
+                                    <?php $no = 1?>
+                                    <?php foreach ($barang as $pesanan): ?>
                                     <tr>
                                         <td><?= $no++ ?></td>
                                         <td><?=$pesanan['nama_barang']?></td>
                                         <td><?=$pesanan['id_supplier']?></td>
-                                        <td><?=$pesanan['stok']?></td>
+                                        <td><?=$pesanan['stok']?> Pcs</td>
                                         <td><?=$pesanan['nama_kategori']?></td>
-                                        <td><?=$pesanan['harga']?></td>
+                                        <td>Rp. <?=number_format($pesanan['harga'])?></td>
                                         <td>
                                             <a href="<?= base_url('pegawai/daftar-barang/edit/').$pesanan['id_barang']?>"
                                                 class="btn btn-primary">Edit</a>
@@ -56,8 +56,8 @@
                                                 data-toggle="modal" class="btn btn-danger">Hapus</button>
                                         </td>
                                     </tr>
+                                    <?php endforeach?>
                                 </tbody>
-                                <?php endforeach?>
                             </table>
                         </div>
                     </div>

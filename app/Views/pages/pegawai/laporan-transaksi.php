@@ -19,9 +19,27 @@
                     <form action="#" method="POST" id="downloadForm">
                         <div class="card-header d-flex justify-content-between">
                             <div class="form-group">
+                                <label>Filter</label>
+                                <select id="filter" class="form-control" name="filter">
+                                    <option value="bulan">Bulan</option>
+                                    <option value="tahun">Tahun</option>
+                                    <option value="tiga-bulan">3 Bulan Terakhir</option>
+                                </select>
+                            </div>
+                            <div class="form-group" id="bulanSelect">
                                 <label>Pilih Bulan</label>
-                                <input type="month" id="month" value="<?= date('Y-m') ?>" class="form-control"
-                                    name="month">
+                                <input type="month" id="month" class="form-control" name="month">
+                            </div>
+                            <div class="form-group" id="tahunSelect">
+                                <label>Pilih Tahun</label>
+                                <select id="year" class="form-control" name="year">
+                                    <?php
+                                    $currentYear = date('Y');
+                                    for ($i = $currentYear; $i >= 2000; $i--) {
+                                        echo '<option value="' . $i . '">' . $i . '</option>';
+                                    }
+                                    ?>
+                                </select>
                             </div>
                             <div class="form-group">
                                 <button type="submit" name="cetak" class="btn btn-success" form="downloadForm"
@@ -73,30 +91,87 @@
 <script>
 $.fn.dataTable.ext.search.push(
     function(settings, data, dataIndex) {
-        var month = $('#month').val();
-        var date = data[1];
-        var split1 = date.split('-')[0];
-        var split2 = date.split('-')[1];
-        var fix = split1 + '-' + split2;
-        if (
-            (fix === month) || (month === "") || (fix === "")
-        ) {
-            return true;
+        var selectedFilter = $('#filter').val();
+        var selectedMonth = $('#month').val();
+        var selectedYear = $('#year').val();
+
+        var rowDate = data[1];
+        var rowMonth = rowDate.split('-')[1];
+        var rowYear = rowDate.split('-')[0];
+
+        if (selectedFilter === 'bulan') {
+            var fix = rowYear + '-' + rowMonth;
+
+            if (
+                (selectedMonth === fix) ||
+                (selectedMonth === '') ||
+                (fix === '')
+            ) {
+                return true;
+            }
+        } else if (selectedFilter === 'tiga-bulan') {
+            if (selectedMonth === '' || selectedYear === '') {
+                return true; // Return true if either month or year is empty
+            }
+
+            var currentDate = new Date();
+            var currentYear = currentDate.getFullYear();
+            var currentMonth = currentDate.getMonth() + 1; // Adding 1 to get the current month
+
+            var selectedYear = parseInt(selectedYear);
+            var selectedMonth = parseInt(selectedMonth);
+
+            var diffMonths = (currentYear - selectedYear) * 12 + (currentMonth - selectedMonth);
+
+            if (diffMonths < 3 || selectedMonth === 0) {
+                return true;
+            }
+        } else if (selectedFilter === 'tahun') {
+            if (selectedYear === '') {
+                return true; // Return true if year is empty
+            }
+
+            var currentDate = new Date();
+            var currentYear = currentDate.getFullYear();
+
+            var selectedYear = parseInt(selectedYear);
+
+            if (selectedYear === currentYear) {
+                return true;
+            }
         }
+
         return false;
     }
 );
-$(document).ready(function() {
 
-    // Create date inputs
-    monthDate = $('#month').val();
+$(document).ready(function() {
+    // Hide initial select elements
+    $('#bulanSelect, #tahunSelect').hide();
+
+    // Show/hide select elements based on filter selection
+    $('#filter').on('change', function() {
+        var selectedFilter = $(this).val();
+
+        if (selectedFilter === 'bulan') {
+            $('#bulanSelect').show();
+            $('#tahunSelect').hide();
+        } else if (selectedFilter === 'tahun') {
+            $('#bulanSelect').hide();
+            $('#tahunSelect').show();
+        } else {
+            $('#bulanSelect, #tahunSelect').hide();
+        }
+    });
+
     var table = $('#tableMonth').DataTable({
         "order": [
             [1, "asc"]
-        ],
+        ]
     });
+
     // Refilter the table
-    $('#month').on('change', function() {
+    $('#filter, #month, #year').on('change', function() {
         table.draw();
     });
 });

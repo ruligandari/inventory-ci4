@@ -18,35 +18,70 @@ class LaporanTransaksiController extends BaseController
 
         return view('pages/pegawai/laporan-transaksi', $data);
     }
-    public function create(){
-        $tanggal = $this->request->getVar('month');
-        $transaksi = new TransaksiModel();
-        $laporanTransaksi = $transaksi->getDataByDate($tanggal);
-        $data = [
-            'title' => 'Laporan Transaksi',
-            'transaksi' => $laporanTransaksi,
-    ];
-    return view('layouts/print-transaksi', $data);
+    public function create()
+    {
+        $filter = $this->request->getVar('filter');
+        $month = $this->request->getVar('month');
+        $year = $this->request->getVar('year');
     
+        $barang = new TransaksiModel();
+        $laporanMasuk = [];
+    
+        if ($filter === 'bulan') {
+            $laporanMasuk = $barang->getDataByMonth($month);
+            $title = "Laporan Transaksi Bulan ".$month."";
+        } else if ($filter === 'tiga-bulan') {
+            $laporanMasuk = $barang->getDataByLastThreeMonths();
+            $tanggal_sekarang = date('Y-m-d');
+            $tigaBulanTerakhir = date('Y-m-d', strtotime('-3 months', strtotime($tanggal_sekarang)));
+            $title = "Laporan Transaksi 3 Bulan Terakhir <br>".$tanggal_sekarang." Sampai ".$tigaBulanTerakhir."<br>";
+        } else if ($filter === 'tahun') {
+            $laporanMasuk = $barang->getDataByYear($year);
+            $title = "Laporan Transaksi Tahun ".$year."";
+        }
+    
+        $data = [
+            'title' => $title,
+            'laporanBarang' => $laporanMasuk,
+        ];
+    
+        return view('layouts/print-keluar', $data);
     }
+    
     public function unduh()
 {
-    $tanggal = $this->request->getVar('month');
-    $transaksi = new TransaksiModel();
-    $laporanTransaksi = $transaksi->getDataByDate($tanggal);
-    $data = [
-        'title' => 'Laporan Transaksi',
-        'transaksi' => $laporanTransaksi,
-    ];
-
+    $filter = $this->request->getVar('filter');
+        $month = $this->request->getVar('month');
+        $year = $this->request->getVar('year');
+    
+        $barang = new TransaksiModel();
+        $laporanMasuk = [];
+    
+        if ($filter === 'bulan') {
+            $laporanMasuk = $barang->getDataByMonth($month);
+            $title = "Laporan Transaksi Bulan ".$month."";
+        } else if ($filter === 'tiga-bulan') {
+            $laporanMasuk = $barang->getDataByLastThreeMonths();
+            $tanggal_sekarang = date('Y-m-d');
+            $tigaBulanTerakhir = date('Y-m-d', strtotime('-3 months', strtotime($tanggal_sekarang)));
+            $title = "Laporan Transaksi 3 Bulan Terakhir <br>".$tanggal_sekarang." Sampai ".$tigaBulanTerakhir."<br>";
+        } else if ($filter === 'tahun') {
+            $laporanMasuk = $barang->getDataByYear($year);
+            $title = "Laporan Transaksi Tahun ".$year."";
+        }
+    
+        $data = [
+            'title' => $title,
+            'laporanBarang' => $laporanMasuk,
+        ];
     // Load view into a variable
-    $html = view('layouts/print-transaksi', $data);
+    $html = view('layouts/print-keluar', $data);
 
     // Instantiate Dompdf
     $dompdf = new Dompdf();
     $dompdf->loadHtml($html);
 
-    // Set paper size and orientation
+    // (Optional) Setup the paper size and orientation
     $dompdf->setPaper('A4', 'landscape');
 
     // Render the HTML as PDF

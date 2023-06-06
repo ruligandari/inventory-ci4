@@ -37,23 +37,23 @@
                                         <th>Aksi</th>
                                     </tr>
                                 </thead>
-                                <?php $no = 1?>
-                                <?php foreach ($transaksi as $pesanan): ?>
                                 <tbody>
+                                    <?php $no = 1?>
+                                    <?php foreach ($transaksi as $pesanan): ?>
                                     <tr>
                                         <td><?= $no++ ?></td>
                                         <td><?=$pesanan['nama_barang']?></td>
-                                        <td><?=$pesanan['harga']?></td>
-                                        <td><?=$pesanan['qty']?></td>
-                                        <td><?=$pesanan['total']?></td>
+                                        <td>Rp. <?=number_format($pesanan['harga'])?></td>
+                                        <td><?=$pesanan['qty']?> Pcs</td>
+                                        <td>Rp. <?=number_format($pesanan['total'])?></td>
                                         <td><?=$pesanan['tanggal']?></td>
                                         <td>
                                             <button data-target="#hapusModal<?=$pesanan['id_transaksi']?>"
                                                 data-toggle="modal" class="btn btn-danger">Hapus</button>
                                         </td>
                                     </tr>
+                                    <?php endforeach?>
                                 </tbody>
-                                <?php endforeach?>
                             </table>
                         </div>
                     </div>

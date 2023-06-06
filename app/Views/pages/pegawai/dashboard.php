@@ -74,7 +74,7 @@
                                     <tr>
                                         <td><?=$no++?></td>
                                         <td><?=$br['nama_barang']?></td>
-                                        <td><?=$br['stok']?></td>
+                                        <td><?=$br['stok']?> Pcs</td>
                                         <td><?=$keterangan?></td>
                                     </tr>
                                     <?php endforeach; ?>
@@ -93,19 +93,19 @@
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 <script>
 $(document).ready(function() {
-    var activeFilter = 'bulan';
+    var activeFilter1 = 'bulan';
 
-    function updateChart() {
-        var url = '';
-        if (activeFilter === 'bulan') {
-            url = '<?=base_url("pegawai/home/get_data")?>';
-        } else if (activeFilter === 'hari') {
-            url = '<?=base_url("pegawai/home/get_data_hari")?>';
-        } else if (activeFilter === 'minggu') {
-            url = '<?=base_url("pegawai/home/get_data_week")?>';
+    function updateChart1() {
+        var url1 = '';
+        if (activeFilter1 === 'bulan') {
+            url1 = '<?= base_url("pegawai/home/get_data") ?>';
+        } else if (activeFilter1 === 'hari') {
+            url1 = '<?= base_url("pegawai/home/get_data_hari") ?>';
+        } else if (activeFilter1 === 'minggu') {
+            url1 = '<?= base_url("pegawai/home/get_data_week") ?>';
         }
         $.ajax({
-            url: url,
+            url: url1,
             dataType: 'json',
             success: function(data) {
                 var labels = [];
@@ -116,8 +116,8 @@ $(document).ready(function() {
                     dataJumlah.push(item.jumlah);
                 });
 
-                // Konfigurasi chart
-                var config = {
+                var ctx1 = document.getElementById('myChart1').getContext('2d');
+                var myChart1 = new Chart(ctx1, {
                     type: 'bar',
                     data: {
                         labels: labels,
@@ -131,18 +131,12 @@ $(document).ready(function() {
                     },
                     options: {
                         scales: {
-                            yAxes: [{
-                                ticks: {
-                                    beginAtZero: true
-                                }
-                            }]
+                            y: {
+                                beginAtZero: true
+                            }
                         }
                     }
-                };
-
-                // Membuat chart
-                var ctx = document.getElementById('myChart1').getContext('2d');
-                var myChart = new Chart(ctx, config);
+                });
             },
             error: function(xhr, status, error) {
                 console.log(xhr.responseText);
@@ -152,29 +146,28 @@ $(document).ready(function() {
 
     $('.filter-chart').click(function(e) {
         e.preventDefault();
-        var Filter = $(this).data('filter');
-        if (Filter !== activeFilter) {
-            activeFilter = Filter;
-            updateChart();
+        var Filter1 = $(this).data('filter');
+        if (Filter1 !== activeFilter1) {
+            activeFilter1 = Filter1;
+            updateChart1();
         }
     });
-    updateChart();
-});
 
-$(document).ready(function() {
-    var activeFilter = 'bulan1';
+    updateChart1();
 
-    function updateChart() {
-        var url = '';
-        if (activeFilter === 'bulan1') {
-            url = '<?=base_url("pegawai/home/get_data_keluar")?>';
-        } else if (activeFilter === 'hari1') {
-            url = '<?=base_url("pegawai/home/get_data_hari_keluar")?>';
-        } else if (activeFilter === 'minggu1') {
-            url = '<?=base_url("pegawai/home/get_data_week_keluar")?>';
+    var activeFilter2 = 'bulan1';
+
+    function updateChart2() {
+        var url2 = '';
+        if (activeFilter2 === 'bulan1') {
+            url2 = '<?= base_url("pegawai/home/get_data_keluar") ?>';
+        } else if (activeFilter2 === 'hari1') {
+            url2 = '<?= base_url("pegawai/home/get_data_hari_keluar") ?>';
+        } else if (activeFilter2 === 'minggu1') {
+            url2 = '<?= base_url("pegawai/home/get_data_week_keluar") ?>';
         }
         $.ajax({
-            url: url,
+            url: url2,
             dataType: 'json',
             success: function(data) {
                 var labels = [];
@@ -185,8 +178,8 @@ $(document).ready(function() {
                     dataJumlah.push(item.jumlah);
                 });
 
-                // Konfigurasi chart
-                var config = {
+                var ctx2 = document.getElementById('myChart2').getContext('2d');
+                var myChart2 = new Chart(ctx2, {
                     type: 'bar',
                     data: {
                         labels: labels,
@@ -200,18 +193,12 @@ $(document).ready(function() {
                     },
                     options: {
                         scales: {
-                            yAxes: [{
-                                ticks: {
-                                    beginAtZero: true
-                                }
-                            }]
+                            y: {
+                                beginAtZero: true
+                            }
                         }
                     }
-                };
-
-                // Membuat chart
-                var ctx = document.getElementById('myChart2').getContext('2d');
-                var myChart = new Chart(ctx, config);
+                });
             },
             error: function(xhr, status, error) {
                 console.log(xhr.responseText);
@@ -221,13 +208,14 @@ $(document).ready(function() {
 
     $('.filter-chart').click(function(e) {
         e.preventDefault();
-        var Filter = $(this).data('filter');
-        if (Filter !== activeFilter) {
-            activeFilter = Filter;
-            updateChart();
+        var Filter2 = $(this).data('filter');
+        if (Filter2 !== activeFilter2) {
+            activeFilter2 = Filter2;
+            updateChart2();
         }
     });
-    updateChart();
+
+    updateChart2();
 });
 </script>
 <?= $this->endSection()?>

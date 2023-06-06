@@ -15,8 +15,6 @@ class PesanBarangController extends BaseController
     public function index()
     {
         $barangpesanan = new BarangPesanan();
-        
-        
         $getAllData = $barangpesanan->getAllData();
         $data = [
             'title' => 'Pesan Barang',

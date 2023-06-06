@@ -19,28 +19,62 @@ class LaporanKeluarController extends BaseController
         return view('pages/pegawai/laporan-barang-keluar', $data);
     }
 
-     public function create()
+    public function create()
     {
-        $tanggal = $this->request->getVar('month');
+        $filter = $this->request->getVar('filter');
+        $month = $this->request->getVar('month');
+        $year = $this->request->getVar('year');
+    
         $barang = new BarangKeluar();
-        $laporanMasuk = $barang->getDataByDate($tanggal);
+        $laporanKeluar = [];
+    
+        if ($filter === 'bulan') {
+            $laporanKeluar = $barang->getDataByMonth($month);
+            $title = "Laporan Barang Keluar Bulan ".$month."";
+        } else if ($filter === 'tiga-bulan') {
+            $laporanKeluar = $barang->getDataByLastThreeMonths();
+            $tanggal_sekarang = date('Y-m-d');
+            $tigaBulanTerakhir = date('Y-m-d', strtotime('-3 months', strtotime($tanggal_sekarang)));
+            $title = "Laporan Barang Keluar 3 Bulan Terakhir <br>".$tanggal_sekarang." Sampai ".$tigaBulanTerakhir."<br>";
+        } else if ($filter === 'tahun') {
+            $laporanKeluar = $barang->getDataByYear($year);
+            $title = "Laporan Barang Keluar Tahun ".$year."";
+        }
+    
         $data = [
-            'title' => 'Laporan Barang Keluar',
-            'laporanBarang' => $laporanMasuk,
+            'title' => $title,
+            'laporanBarang' => $laporanKeluar,
         ];
-
+    
         return view('layouts/print-keluar', $data);
     }
+    
     public function unduh()
 {
-    $tanggal = $this->request->getVar('month');
-    $barang = new BarangKeluar();
-    $laporanMasuk = $barang->getDataByDate($tanggal);
-    $data = [
-        'title' => 'Laporan Barang Keluar',
-        'laporanBarang' => $laporanMasuk,
-    ];
-
+    $filter = $this->request->getVar('filter');
+        $month = $this->request->getVar('month');
+        $year = $this->request->getVar('year');
+    
+        $barang = new BarangKeluar();
+        $laporanKeluar = [];
+    
+        if ($filter === 'bulan') {
+            $laporanKeluar = $barang->getDataByMonth($month);
+            $title = "Laporan Barang Keluar Bulan".$month."";
+        } else if ($filter === 'tiga-bulan') {
+            $laporanKeluar = $barang->getDataByLastThreeMonths();
+            $tanggal_sekarang = date('Y-m-d');
+            $tigaBulanTerakhir = date('Y-m-d', strtotime('-3 months', strtotime($tanggal_sekarang)));
+            $title = "Laporan Barang Keluar 3 Bulan Terakhir yaitu dari tanggal ".$tanggal_sekarang." sampai tanggal ".$tigaBulanTerakhir."";
+        } else if ($filter === 'tahun') {
+            $laporanKeluar = $barang->getDataByYear($year);
+            $title = "Laporan Barang Keluar Tahun".$year."";
+        }
+    
+        $data = [
+            'title' => $title,
+            'laporanBarang' => $laporanKeluar,
+        ];
     // Load view into a variable
     $html = view('layouts/print-keluar', $data);
 

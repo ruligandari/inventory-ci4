@@ -28,6 +28,7 @@
                     <div class="card-body">
                         <div class="table-responsive">
                             <table class="table table-stripped" id="table-1">
+
                                 <thead>
                                     <tr>
                                         <th>No</th>
@@ -47,9 +48,17 @@
                                         <?php endif;?>
                                     </tr>
                                 </thead>
-                                <?php $no = 1?>
-                                <?php foreach ($barangpesanan as $pesanan): ?>
-                                <?php 
+                                <tbody>
+                                    <?php $no = 1?>
+                                    <?php foreach ($barangpesanan as $pesanan): ?>
+                                    <?php if($pesanan['id_kategori'] === '1'){
+                                    $kategori = "Vitamin/Obat-obatan";
+                                }else if($pesanan['id_kategori'] === '2'){
+                                    $kategori = "Pakan";
+                                }else if($pesanan['id_kategori'] === '3'){
+                                    $kategori = "Aksesoris";
+                                }?>
+                                    <?php 
                             if (session()->get('role') !== '1') {
                               if($pesanan['status'] == 'Menunggu Konfirmasi'){
                                 $badge = "badge-secondary";
@@ -81,16 +90,15 @@
                             }
                             }
                             ?>
-                                <tbody>
                                     <tr>
                                         <td><?= $no++ ?></td>
                                         <td><?=$pesanan['tanggal_pesan']?></td>
                                         <td><?=$pesanan['nama_barang']?> </td>
                                         <td><?=$pesanan['id_supplier']?></td>
-                                        <td><?=$pesanan['id_kategori']?></td>
-                                        <td><?=$pesanan['harga']?></td>
-                                        <td><?=$pesanan['jumlah']?></td>
-                                        <td><?=$pesanan['total']?></td>
+                                        <td><?=$kategori?></td>
+                                        <td>Rp. <?=number_format($pesanan['harga'])?></td>
+                                        <td><?=$pesanan['jumlah']?> Pcs</td>
+                                        <td>Rp. <?=number_format($pesanan['total'])?></td>
                                         <td>
                                             <div class="badge <?=$badge?>"><?= $pesanan['status']?></div>
                                         </td>
@@ -105,17 +113,14 @@
                                         <?php if($_SESSION['role'] !== '1'):?>
                                         <td>
                                             <button <?=$isHide?>
-                                                data-target="#hapusModal<?=$pesanan['id_barang_pesanan']?>"
-                                                data-toggle="modal" class="btn btn-danger <?=$isHide?>">Hapus</button>
-                                            <button <?=$isHide?>
                                                 data-target="#terimaModal<?=$pesanan['id_barang_pesanan']?>"
                                                 data-toggle="modal" class="btn btn-success <?=$isHide?>">Terima
                                                 Barang</button>
                                         </td>
                                         <?php endif;?>
                                     </tr>
+                                    <?php endforeach?>
                                 </tbody>
-                                <?php endforeach?>
                             </table>
                         </div>
                     </div>

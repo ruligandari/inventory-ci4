@@ -37,7 +37,9 @@ use Config\Services;
 <body>
     <div id="app">
         <div class="main-wrapper">
-            <div class="navbar-bg"></div>
+            <div class="navbar-bg"
+                style="background-image:url('<?=base_url()?>assets/img/tapak.png'); background-size: 100%; width=150px; height: 150px">
+            </div>
             <nav class="navbar navbar-expand-lg main-navbar">
                 <form class="form-inline mr-auto">
 
@@ -62,6 +64,7 @@ use Config\Services;
             <div class="main-sidebar sidebar-style-2">
                 <aside id="sidebar-wrapper">
                     <div class="sidebar-brand">
+                        <img src="<?=base_url()?>/assets/img/cat.png" width="20" height="20" class="mr-2">
                         <a href="">Cisnu Petshop</a>
                     </div>
                     <div class="sidebar-brand sidebar-brand-sm">
